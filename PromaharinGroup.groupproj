@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{CA5CDD9C-01A2-4574-9664-6B7196F0D909}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Server\PromaharinServer.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Client\PromaharinClient.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="PromaharinServer">
+        <MSBuild Projects="Server\PromaharinServer.dproj"/>
+    </Target>
+    <Target Name="PromaharinServer:Clean">
+        <MSBuild Projects="Server\PromaharinServer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PromaharinServer:Make">
+        <MSBuild Projects="Server\PromaharinServer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PromaharinClient">
+        <MSBuild Projects="Client\PromaharinClient.dproj"/>
+    </Target>
+    <Target Name="PromaharinClient:Clean">
+        <MSBuild Projects="Client\PromaharinClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PromaharinClient:Make">
+        <MSBuild Projects="Client\PromaharinClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="PromaharinServer;PromaharinClient"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="PromaharinServer:Clean;PromaharinClient:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="PromaharinServer:Make;PromaharinClient:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
