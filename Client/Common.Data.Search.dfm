@@ -14,6 +14,12 @@ object dmSearch: TdmSearch
       item
         DataType = ftWideString
         Precision = 2000
+        Name = 'sFields'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftWideString
+        Precision = 2000
         Name = 'sField'
         ParamType = ptInput
       end
@@ -43,6 +49,12 @@ object dmSearch: TdmSearch
         DataType = ftWideString
         Precision = 2000
         Name = 'sTable'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftWideString
+        Precision = 2000
+        Name = 'sFields'
         ParamType = ptInput
       end
       item

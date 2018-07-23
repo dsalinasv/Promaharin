@@ -13,7 +13,9 @@ uses
   cxGridDBTableView, cxGrid, cxPC, System.ImageList, Vcl.ImgList, cxImageList,
   cxContainer, dxLayoutcxEditAdapters, dxLayoutContainer, cxTextEdit, cxDBEdit,
   dxLayoutControl, cxCurrencyEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit,
-  cxDBLookupEdit, cxDBLookupComboBox, dxSkinsCore, dxSkinOffice2013White;
+  cxDBLookupEdit, cxDBLookupComboBox, dxSkinsCore, dxSkinOffice2013White,
+  cxDataControllerConditionalFormattingRulesManagerDialog,
+  Common.Control.CodeLookup;
 
 type
   TfrmProvider = class(TfrmList)
@@ -25,11 +27,11 @@ type
     lblContacto: TdxLayoutItem;
     txtDireccion: TcxDBTextEdit;
     lblDireccion: TdxLayoutItem;
-    cmbProducto: TcxDBLookupComboBox;
-    lblProducto: TdxLayoutItem;
     txtPrecio: TcxDBCurrencyEdit;
     lblPrecio: TdxLayoutItem;
     dsProduct: TDataSource;
+    cmbProduct: TcxDBLookupComboBox;
+    lblProduct: TdxLayoutItem;
   private
     { Private declarations }
   public

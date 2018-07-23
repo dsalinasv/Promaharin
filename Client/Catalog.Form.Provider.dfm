@@ -1,18 +1,10 @@
 inherited frmProvider: TfrmProvider
-  Caption = 'Proveedores'
+  Caption = 'Proveedores de materia prima'
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcList: TcxPageControl
-    ExplicitTop = 40
-    ExplicitHeight = 521
     inherited tabData: TcxTabSheet
-      ExplicitLeft = 2
-      ExplicitTop = 28
-      ExplicitWidth = 780
-      ExplicitHeight = 491
       inherited lcData: TdxLayoutControl
-        Width = 780
-        ExplicitWidth = 780
         inherited txtCode: TcxDBTextEdit
           Left = 74
           ExplicitLeft = 74
@@ -67,17 +59,31 @@ inherited frmProvider: TfrmProvider
           TabOrder = 5
           Width = 696
         end
-        object cmbProducto: TcxDBLookupComboBox [6]
+        object txtPrecio: TcxDBCurrencyEdit [6]
+          Left = 74
+          Top = 199
+          DataBinding.DataField = 'PRECIO'
+          DataBinding.DataSource = dsMaster
+          Style.BorderColor = clWindowFrame
+          Style.BorderStyle = ebs3D
+          Style.HotTrack = False
+          TabOrder = 7
+          Width = 121
+        end
+        object cmbProduct: TcxDBLookupComboBox [7]
           Left = 74
           Top = 172
           DataBinding.DataField = 'IDPRODUCT'
           DataBinding.DataSource = dsMaster
+          Properties.DropDownListStyle = lsFixedList
           Properties.KeyFieldNames = 'IDPRODUCT'
           Properties.ListColumns = <
             item
+              Caption = 'C'#243'digo'
               FieldName = 'CODE'
             end
             item
+              Caption = 'Nombre'
               FieldName = 'NAME'
             end>
           Properties.ListFieldIndex = 1
@@ -90,19 +96,8 @@ inherited frmProvider: TfrmProvider
           TabOrder = 6
           Width = 696
         end
-        object txtPrecio: TcxDBCurrencyEdit [7]
-          Left = 74
-          Top = 199
-          DataBinding.DataField = 'PRECIO'
-          DataBinding.DataSource = dsMaster
-          Style.BorderColor = clWindowFrame
-          Style.BorderStyle = ebs3D
-          Style.HotTrack = False
-          TabOrder = 7
-          Width = 121
-        end
         inherited lcDataGroup_Root: TdxLayoutGroup
-          ItemIndex = 7
+          ItemIndex = 6
         end
         object lblRazonSocial: TdxLayoutItem
           Parent = lcDataGroup_Root
@@ -140,15 +135,6 @@ inherited frmProvider: TfrmProvider
           ControlOptions.ShowBorder = False
           Index = 5
         end
-        object lblProducto: TdxLayoutItem
-          Parent = lcDataGroup_Root
-          CaptionOptions.Text = 'Producto'
-          Control = cmbProducto
-          ControlOptions.OriginalHeight = 21
-          ControlOptions.OriginalWidth = 145
-          ControlOptions.ShowBorder = False
-          Index = 6
-        end
         object lblPrecio: TdxLayoutItem
           Parent = lcDataGroup_Root
           AlignHorz = ahLeft
@@ -159,16 +145,15 @@ inherited frmProvider: TfrmProvider
           ControlOptions.ShowBorder = False
           Index = 7
         end
-      end
-    end
-    inherited tabList: TcxTabSheet
-      ExplicitLeft = 2
-      ExplicitTop = 28
-      ExplicitWidth = 780
-      ExplicitHeight = 491
-      inherited grdList: TcxGrid
-        Width = 780
-        ExplicitWidth = 780
+        object lblProduct: TdxLayoutItem
+          Parent = lcDataGroup_Root
+          CaptionOptions.Text = 'Producto'
+          Control = cmbProduct
+          ControlOptions.OriginalHeight = 21
+          ControlOptions.OriginalWidth = 145
+          ControlOptions.ShowBorder = False
+          Index = 6
+        end
       end
     end
   end

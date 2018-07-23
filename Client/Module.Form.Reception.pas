@@ -20,14 +20,14 @@ uses
 type
   TfrmReception = class(TfrmModule)
     lblProveedor: TdxLayoutItem;
-    PROVIDER_PRECIO_PRECIO: TctlCodeLookup;
+    IdProvider_PRECIO_IdProduct: TctlCodeLookup;
     txtPrecio: TcxDBCurrencyEdit;
     lblPrecio: TdxLayoutItem;
     txtCantidad: TcxDBCurrencyEdit;
     lblCantidad: TdxLayoutItem;
     dtpFecha: TcxDBDateEdit;
     lblFecha: TdxLayoutItem;
-    PRODUCT: TctlCodeLookup;
+    IdProduct: TctlCodeLookup;
     lblProducto: TdxLayoutItem;
     IMPORTE: TcxDBLabel;
     lblImporte: TdxLayoutItem;
@@ -55,11 +55,25 @@ type
     dxBarLargeButton2: TdxBarLargeButton;
     btnDelete: TdxBarLargeButton;
     actDelete: TDataSetDelete;
+    lblTruck: TdxLayoutItem;
+    IdTruck: TctlCodeLookup;
+    lblDriver: TdxLayoutItem;
+    IdDriver: TctlCodeLookup;
+    dxBarSubItem1: TdxBarSubItem;
+    dxBarButton1: TdxBarButton;
+    ROW: TcxGridDBColumn;
+    dxBarLargeButton3: TdxBarLargeButton;
+    actGenerate: TAction;
     procedure actConsultExecute(Sender: TObject);
     procedure grdListViewCellDblClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
     procedure actPrintExecute(Sender: TObject);
+    procedure ROWGetDisplayText(Sender: TcxCustomGridTableItem;
+      ARecord: TcxCustomGridRecord; var AText: string);
+    procedure actGenerateExecute(Sender: TObject);
+    procedure actInsertExecute(Sender: TObject);
+    procedure actCancelExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -72,15 +86,33 @@ implementation
 
 uses Module.Data.Reception;
 
+procedure TfrmReception.actCancelExecute(Sender: TObject);
+begin
+  dmMaster.cdsMaster.Cancel;
+  CleanControl(Self);
+end;
+
 procedure TfrmReception.actConsultExecute(Sender: TObject);
 begin
   (dmMaster as TdmReception).ReceptionByDate
     (dtpFechaInicial.Date, dtpFechaFinal.Date);
 end;
 
+procedure TfrmReception.actGenerateExecute(Sender: TObject);
+begin
+  (dmMaster as TdmReception).GetCode;
+  ShowMessage('Se ha copiado el código generado al portapapeles de windows');
+end;
+
+procedure TfrmReception.actInsertExecute(Sender: TObject);
+begin
+  dmMaster.cdsMaster.Append;
+  CleanControl(Self);
+end;
+
 procedure TfrmReception.actPrintExecute(Sender: TObject);
 begin
-  (dmMaster as TdmReception).PrintReception;
+  (dmMaster as TdmReception).PrintReception(grdListView.DataController.Filter.FilterText);
 end;
 
 procedure TfrmReception.grdListViewCellDblClick(Sender: TcxCustomGridTableView;
@@ -89,8 +121,17 @@ procedure TfrmReception.grdListViewCellDblClick(Sender: TcxCustomGridTableView;
 begin
   inherited;
   (dmMaster as TdmReception).ReceptionById;
-  PROVIDER_PRECIO_PRECIO.GetData;
-  PRODUCT.GetData;
+  IdProvider_PRECIO_IdProduct.GetData;
+  IdProduct.GetData;
+  IdTruck.GetData;
+  IdDriver.GetData;
+end;
+
+procedure TfrmReception.ROWGetDisplayText(Sender: TcxCustomGridTableItem;
+  ARecord: TcxCustomGridRecord; var AText: string);
+begin
+  AText := IntToStr(Sender.GridView.DataController.GetRowIndexByRecordIndex(
+    ARecord.RecordIndex, False) + 1);
 end;
 
 initialization

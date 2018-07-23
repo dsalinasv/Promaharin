@@ -13,7 +13,7 @@ uses
   Vcl.DBClientActns, System.Actions, Vcl.ActnList, dxBar, System.ImageList,
   Vcl.ImgList, cxImageList, cxContainer, dxLayoutcxEditAdapters,
   dxLayoutContainer, cxTextEdit, cxDBEdit, dxLayoutControl, dxSkinsCore,
-  dxSkinOffice2013White;
+  dxSkinOffice2013White, cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
   TfrmProduct = class(TfrmList)

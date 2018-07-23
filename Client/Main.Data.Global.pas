@@ -76,7 +76,4 @@ begin
   end;
 end;
 
-initialization
-  RegisterClass(TdmGlobal);
-
 end.

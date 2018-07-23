@@ -12,9 +12,12 @@ object frmMain: TfrmMain
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
+  WindowState = wsMaximized
   OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 13
   object navBar: TdxNavBar
@@ -26,55 +29,105 @@ object frmMain: TfrmMain
     ActiveGroupIndex = 0
     TabOrder = 0
     ViewReal = 15
+    OptionsBehavior.Common.AllowSelectLinks = True
+    OptionsBehavior.Common.EachGroupHasSelectedLink = True
     OptionsBehavior.NavigationPane.AllowCustomizing = False
     OptionsView.NavigationPane.ShowOverflowPanel = False
-    object navRecepcion: TdxNavBarGroup
+    object navReception: TdxNavBarGroup
       Caption = 'Recepci'#243'n de materia prima'
       SelectedLinkIndex = -1
       TopVisibleLinkIndex = 0
       Links = <
         item
-          Item = mnuProductos
+          Item = mnuProduct
         end
         item
-          Item = mnuProveedores
+          Item = mnuProvider
         end
         item
-          Item = mnuRecepcion
+          Item = mnuReception
+        end
+        item
+          Item = mnuBatch
         end>
     end
-    object navBarGroup1: TdxNavBarGroup
-      Caption = 'M'#243'dulo 1'
+    object navRefuel: TdxNavBarGroup
+      Caption = 'Recarga de combustible'
       SelectedLinkIndex = -1
       TopVisibleLinkIndex = 0
       Links = <
         item
-          Item = navBarItem1
+          Item = mnuFuel
+        end
+        item
+          Item = mnuTruck
+        end
+        item
+          Item = mnuDestination
+        end
+        item
+          Item = mnuDriver
+        end
+        item
+          Item = mnuSupplier
+        end
+        item
+          Item = mnuProvisioner
+        end
+        item
+          Item = mnuRefuel
+        end
+        item
+          Item = mnuInventory
+        end
+        item
+          Item = mnuStock
         end>
     end
-    object navBarGroup2: TdxNavBarGroup
-      Caption = 'M'#243'dulo 2'
+    object navExpense: TdxNavBarGroup
+      Caption = 'Gastos'
       SelectedLinkIndex = -1
       TopVisibleLinkIndex = 0
-      Links = <
-        item
-          Item = navBarItem2
-        end>
+      Links = <>
     end
-    object mnuProductos: TdxNavBarItem
+    object mnuProduct: TdxNavBarItem
       Action = actProduct
     end
-    object mnuProveedores: TdxNavBarItem
+    object mnuProvider: TdxNavBarItem
       Action = actProvider
     end
-    object mnuRecepcion: TdxNavBarItem
+    object mnuReception: TdxNavBarItem
       Action = actReception
     end
-    object navBarItem1: TdxNavBarItem
-      Caption = 'Opci'#243'n 1'
+    object mnuTruck: TdxNavBarItem
+      Action = actTruck
     end
-    object navBarItem2: TdxNavBarItem
-      Caption = 'Opci'#243'n 2'
+    object mnuDestination: TdxNavBarItem
+      Action = actDestination
+    end
+    object mnuDriver: TdxNavBarItem
+      Action = actDriver
+    end
+    object mnuSupplier: TdxNavBarItem
+      Action = actSupplier
+    end
+    object mnuRefuel: TdxNavBarItem
+      Action = actRefuel
+    end
+    object mnuFuel: TdxNavBarItem
+      Action = actFuel
+    end
+    object mnuProvisioner: TdxNavBarItem
+      Action = actProvisioner
+    end
+    object mnuInventory: TdxNavBarItem
+      Action = actInventory
+    end
+    object mnuStock: TdxNavBarItem
+      Action = actStock
+    end
+    object mnuBatch: TdxNavBarItem
+      Action = actBatch
     end
   end
   object tabMain: TcxPageControl
@@ -96,10 +149,6 @@ object frmMain: TfrmMain
     object tabInicio: TcxTabSheet
       Caption = 'Inicio'
       ImageIndex = 0
-      ExplicitLeft = 4
-      ExplicitTop = 4
-      ExplicitWidth = 583
-      ExplicitHeight = 533
       object imgLogo: TcxImage
         Left = 0
         Top = 0
@@ -107,8 +156,6 @@ object frmMain: TfrmMain
         Style.BorderStyle = ebsNone
         StyleHot.BorderStyle = ebsUltraFlat
         TabOrder = 0
-        ExplicitWidth = 583
-        ExplicitHeight = 533
         Height = 531
         Width = 587
       end
@@ -118,15 +165,68 @@ object frmMain: TfrmMain
     Left = 224
     Top = 8
     object actProduct: TAction
-      Caption = 'Cat'#225'logo de productos'
+      Category = 'Reception'
+      Caption = 'Captura de productos'
       OnExecute = actExecute
     end
     object actProvider: TAction
-      Caption = 'Cat'#225'logo de proveedores'
+      Category = 'Reception'
+      Caption = 'Captura de proveedores'
       OnExecute = actExecute
     end
     object actReception: TAction
+      Category = 'Reception'
       Caption = 'Recepci'#243'n de materia prima'
+      OnExecute = actExecute
+    end
+    object actTruck: TAction
+      Category = 'Refuel'
+      Caption = 'Captura de equipos/unidades'
+      OnExecute = actExecute
+    end
+    object actDestination: TAction
+      Category = 'Refuel'
+      Caption = 'Captura de destinos'
+      OnExecute = actExecute
+    end
+    object actDriver: TAction
+      Category = 'Refuel'
+      Caption = 'Captura de operadores'
+      OnExecute = actExecute
+    end
+    object actSupplier: TAction
+      Category = 'Refuel'
+      Caption = 'Captura de surtidores'
+      OnExecute = actExecute
+    end
+    object actRefuel: TAction
+      Category = 'Refuel'
+      Caption = 'Recarga de combustible'
+      OnExecute = actExecute
+    end
+    object actFuel: TAction
+      Category = 'Refuel'
+      Caption = 'Captura de combustibles'
+      OnExecute = actExecute
+    end
+    object actProvisioner: TAction
+      Category = 'Refuel'
+      Caption = 'Captura de proveedores'
+      OnExecute = actExecute
+    end
+    object actInventory: TAction
+      Category = 'Refuel'
+      Caption = 'Captura de inventarios'
+      OnExecute = actExecute
+    end
+    object actStock: TAction
+      Category = 'Refuel'
+      Caption = 'Saldo de inventario'
+      OnExecute = actExecute
+    end
+    object actBatch: TAction
+      Category = 'Reception'
+      Caption = 'Gesti'#243'n de lotes completos'
       OnExecute = actExecute
     end
   end

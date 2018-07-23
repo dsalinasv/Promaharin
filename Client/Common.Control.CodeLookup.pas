@@ -26,7 +26,7 @@ type
     { Private declarations }
     dmSearch: TdmSearch;
     function GetTable(sId: string): string;
-    procedure GetDataByCode;
+    function GetDataByCode: boolean;
     procedure OpenSearch;
   public
     { Public declarations }
@@ -77,26 +77,24 @@ begin
     OpenSearch;
 end;
 
-procedure TctlCodeLookup.GetDataByCode;
+function TctlCodeLookup.GetDataByCode: boolean;
 var
   sId: string;
   sTable: string;
   DataSet: TClientDataSet;
   ListOfStrings: TStringList;
-  sField: string;
+  Control: TComponent;
   i: integer;
 begin
-  if txtCode.Text = EmptyStr then
-    exit;
   sId:= txtId.DataBinding.DataField;
   sTable:= GetTable(sId);
-  ListOfStrings:= TStringList.Create;
-  ListOfStrings.Clear;
-  ListOfStrings.Delimiter       := '_';
-  ListOfStrings.StrictDelimiter := True;
-  ListOfStrings.DelimitedText   := Name;
   if dmGlobal.CheckCode(txtCode.Text, sTable) then
   begin
+    ListOfStrings:= TStringList.Create;
+    ListOfStrings.Clear;
+    ListOfStrings.Delimiter       := '_';
+    ListOfStrings.StrictDelimiter := True;
+    ListOfStrings.DelimitedText   := Name;
     DataSet:= txtId.DataBinding.DataSource.DataSet as TClientDataSet;
     dmSearch:= TdmSearch.Create(Self);
     with dmSearch.cdsGetByCode do
@@ -109,48 +107,60 @@ begin
       DataSet.FieldByName(sId).AsString:= FieldByName(sId).AsString;
       txtName.Text:= FieldByName('NAME').AsString;
       if ListOfStrings.Count > 1 then
-          for i := 1 to Pred(ListOfStrings.Count) do
-            if i mod 2 = 0 then
-              DataSet.FieldByName(ListOfStrings[i]).AsString:=
-                FieldByName(sField).AsString
-            else
-              sField:= ListOfStrings[i];
+      begin
+        for i := 1 to Pred(ListOfStrings.Count) do
+        begin
+          if FieldByName(ListOfStrings[i]).AsString <> EmptyStr then
+          begin
+            DataSet.FieldByName(ListOfStrings[i]).AsString:=
+              FieldByName(ListOfStrings[i]).AsString;
+            if ListOfStrings[i].Contains('Id') then
+            begin
+              Control:= Self.Owner.FindComponent(ListOfStrings[i]);
+              if Control is TctlCodeLookup then
+                (Control as TctlCodeLookup).GetData;
+            end;
+          end;
+        end;
+      end;
     end;
     dmSearch.Free;
     ListOfStrings.Free;
+    Exit(false);
   end
   else
+  begin
     ShowMessage('El código no existe');
+    Exit(true);
+  end;
 end;
 
 procedure TctlCodeLookup.OpenSearch;
 var
   sId: string;
   sTable: string;
-  DataSet: TClientDataSet;
-  ListOfStrings: TStringList;
-  sField: string;
-  i: integer;
+  FormClass: TFormClass;
+  frmSearch: TForm;
 begin
   sId:= txtId.DataBinding.DataField;
   sTable:= GetTable(sId);
-  DataSet:= txtId.DataBinding.DataSource.DataSet as TClientDataSet;
-  with TfrmSearch.Create(Self) do
-  try
+  FormClass:= TFormClass(GetClass('Tfrm' + sTable + 'Search'));
+  if Assigned(FormClass) then
+    frmSearch:= FormClass.Create(Self)
+  else
+    frmSearch:= TfrmSearch.Create(Self);
+  with frmSearch as TfrmSearch do
+  begin
     Table:= sTable;
     if ShowModal = mrOk then
     begin
       with dmSearch.cdsGetByField do
       begin
-        DataSet.Edit;
-        DataSet.FieldByName(sId).AsString:= FieldByName(sId).AsString;
         txtCode.Text:= FieldByName('CODE').AsString;
-        txtName.Text:= FieldByName('NAME').AsString;
       end;
     end;
-  finally
-    Free;
   end;
+  frmSearch.Free;
 end;
 
 function TctlCodeLookup.GetTable(sId: string): string;
@@ -171,7 +181,7 @@ begin
   if Error then
     OpenSearch
   else
-    GetDataByCode;
+    Error:= GetDataByCode;
 end;
 
 end.

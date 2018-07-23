@@ -9,7 +9,7 @@ inherited frmSearch: TfrmSearch
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
   OnShow = FormShow
-  ExplicitLeft = -92
+  ExplicitTop = -58
   ExplicitWidth = 900
   ExplicitHeight = 500
   PixelsPerInch = 96
@@ -71,12 +71,10 @@ inherited frmSearch: TfrmSearch
       Left = 221
       Top = 1
       Align = alClient
-      Caption = 'B'#218'SQUEDA POR DESCRIPCI'#211'N'
+      Caption = 'B'#250'squeda por nombre'
       Properties.Alignment.Horz = taCenter
       Properties.Alignment.Vert = taVCenter
       Transparent = True
-      ExplicitTop = 24
-      ExplicitHeight = 20
       AnchorX = 442
       AnchorY = 15
     end
@@ -111,11 +109,9 @@ inherited frmSearch: TfrmSearch
     Align = alClient
     TabOrder = 2
     TabStop = False
-    ExplicitHeight = 395
-    object grdSearchDBTableView1: TcxGridDBTableView
+    object grdSearchView: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
-      OnCellDblClick = grdSearchDBTableView1CellDblClick
-      DataController.DataModeController.GridMode = True
+      OnCellDblClick = grdSearchViewCellDblClick
       DataController.DataSource = dsSearch
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
@@ -134,10 +130,10 @@ inherited frmSearch: TfrmSearch
       OptionsSelection.UnselectFocusedRecordOnExit = False
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
-      OnColumnHeaderClick = grdSearchDBTableView1ColumnHeaderClick
+      OnColumnHeaderClick = grdSearchViewColumnHeaderClick
     end
-    object grdSearchLevel1: TcxGridLevel
-      GridView = grdSearchDBTableView1
+    object grdSearchLevel: TcxGridLevel
+      GridView = grdSearchView
     end
   end
   object dsSearch: TDataSource

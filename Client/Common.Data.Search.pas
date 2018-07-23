@@ -22,7 +22,7 @@ type
   public
     { Public declarations }
     procedure GetByCode(sCode, sTable: string);
-    procedure GetByField(sTable, sField, sName: string);
+    procedure GetByField(sTable, sFields, sField, sName: string);
   end;
 
 implementation
@@ -47,7 +47,7 @@ begin
   end;
 end;
 
-procedure TdmSearch.GetByField(sTable, sField, sName: string);
+procedure TdmSearch.GetByField(sTable, sFields, sField, sName: string);
 begin
   with cdsGetByField do
   begin
@@ -55,6 +55,7 @@ begin
     Fields.Clear;
     FieldDefs.Clear;
     ParamByName('sTable').AsString:= sTable;
+    ParamByName('sFields').AsString:= sFields;
     ParamByName('sField').AsString:= sField;
     ParamByName('sName').AsString:= sName;
     Open;

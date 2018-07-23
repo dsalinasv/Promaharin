@@ -99,6 +99,9 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>PromaharinClient_Icon.ico</Icon_MainIcon>
+        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
+        <VerInfo_Build>10</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.10;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -113,8 +116,8 @@
         <DCCReference Include="Catalog.Form.Provider.pas">
             <Form>frmProvider</Form>
         </DCCReference>
-        <DCCReference Include="Module.Form.Reception.pas">
-            <Form>frmReception</Form>
+        <DCCReference Include="Module.Form.Inventory.pas">
+            <Form>frmInventory</Form>
         </DCCReference>
         <DCCReference Include="Catalog.Data.Product.pas">
             <Form>dmProduct</Form>
@@ -124,8 +127,8 @@
             <Form>dmProvider</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Module.Data.Reception.pas">
-            <Form>dmReception</Form>
+        <DCCReference Include="Module.Data.Inventory.pas">
+            <Form>dmInventory</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="Main.Data.Global.pas">
@@ -165,6 +168,130 @@
             <Form>ctlCodeLookup</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Truck.pas">
+            <Form>frmTruck</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Truck.pas">
+            <Form>dmTruck</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Destination.pas">
+            <Form>dmDestination</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Destination.pas">
+            <Form>frmDestination</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Driver.pas">
+            <Form>dmDriver</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Driver.pas">
+            <Form>frmDriver</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Supplier.pas">
+            <Form>dmSupplier</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Supplier.pas">
+            <Form>frmSupplier</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module.Data.Batch.pas">
+            <Form>dmBatch</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Module.Form.Batch.pas">
+            <Form>frmBatch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Fuel.pas">
+            <Form>frmFuel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Fuel.pas">
+            <Form>dmFuel</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Provisioner.pas">
+            <Form>dmProvisioner</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Provisioner.pas">
+            <Form>frmProvisioner</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module.Data.Refuel.pas">
+            <Form>dmRefuel</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Module.Form.Refuel.pas">
+            <Form>frmRefuel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Report.Data.Stock.pas">
+            <Form>dmStock</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Report.Form.Stock.pas">
+            <Form>frmStock</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="ApplicationVersionHelper.pas"/>
+        <DCCReference Include="VersionInfo.pas"/>
+        <DCCReference Include="Search.Form.Provisioner.pas">
+            <Form>frmProvisionerSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Destination.pas">
+            <Form>frmDestinationSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Driver.pas">
+            <Form>frmDriverSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Fuel.pas">
+            <Form>frmFuelSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Product.pas">
+            <Form>frmProductSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Provider.pas">
+            <Form>frmProviderSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Supplier.pas">
+            <Form>frmSupplierSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Truck.pas">
+            <Form>frmTruckSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module.Data.Reception.pas">
+            <Form>dmReception</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Module.Form.Reception.pas">
+            <Form>frmReception</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

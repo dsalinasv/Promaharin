@@ -46,29 +46,46 @@ end;
 procedure TdmMaster.AssignEvents;
 var
   i: integer;
+  cds: TClientDataSet;
 begin
   for i:= 0 to Pred(ComponentCount) do
     if Components[i] is TClientDataset then
-      with (Components[i] as TClientDataSet) do
+    begin
+      cds:= (Components[i] as TClientDataSet);
+      with cds do
       begin
-        OnNewRecord:= cdsNewRecord;
-        AfterPost:= cdsPost;
-        AfterDelete:= cdsPost;
-        OnReconcileError:= cdsReconcileError;
-        Open;
+        if cds.Tag = 0 then
+        begin
+          OnNewRecord:= cdsNewRecord;
+          AfterPost:= cdsPost;
+          AfterDelete:= cdsPost;
+          OnReconcileError:= cdsReconcileError;
+          Open;
+        end;
       end;
+    end;
 end;
 
 procedure TdmMaster.cdsPost(DataSet: TDataSet);
+var
+  cds: TClientDataSet;
 begin
-  (DataSet as TClientDataSet).ApplyUpdates(0);
+  cds:= (DataSet as TClientDataSet);
+  if not Assigned(cds.DataSetField) then
+    cds.ApplyUpdates(0);
 end;
 
 procedure TdmMaster.cdsNewRecord(DataSet: TDataSet);
+var
+  cds: TClientDataSet;
 begin
-  (DataSet as TClientDataSet).FieldByName('ID' + StringReplace(
-    (DataSet as TClientDataSet).ProviderName, 'dsp', EmptyStr, [])).AsString:=
-    dmGlobal.GetGuid;
+  cds:= (DataSet as TClientDataSet);
+  if Assigned(cds.DataSetField) then
+    cds.FieldByName('ID' + StringReplace(cds.Name, 'cds', EmptyStr, [])).
+      AsString:= dmGlobal.GetGuid
+  else
+    cds.FieldByName('ID' + StringReplace(cds.ProviderName, 'dsp', EmptyStr, [])).
+      AsString:= dmGlobal.GetGuid;
 end;
 
 end.

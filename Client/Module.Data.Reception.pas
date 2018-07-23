@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Classes, Data.DB, Datasnap.DBClient,
   Datasnap.DSConnect, Core.Data.Master, frxClass, frxDBSet, frxExportXLS,
-  frxExportPDF;
+  frxExportPDF, Data.FMTBcd, Data.SqlExpr;
 
 type
   TdmReception = class(TdmMaster)
@@ -28,6 +28,9 @@ type
     fdsReceptionByDate: TfrxDBDataset;
     frxXLSExport: TfrxXLSExport;
     frxPDFExport: TfrxPDFExport;
+    cdsMasterIDTRUCK: TStringField;
+    cdsMasterIDDRIVER: TStringField;
+    ssmGetCode: TSqlServerMethod;
     procedure cdsMasterCalcFields(DataSet: TDataSet);
     procedure cdsMasterAfterInsert(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -35,22 +38,23 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure GetCode;
     procedure ReceptionById;
     procedure ReceptionByDate(ini, fin: TDate);
-    procedure PrintReception;
+    procedure PrintReception(filtro: string);
   end;
 
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses Main.Data.Global;
+uses Main.Data.Global, Clipbrd;
 
 {$R *.dfm}
 
 procedure TdmReception.cdsMasterAfterInsert(DataSet: TDataSet);
 begin
-  cdsMasterFECHA.AsDateTime:= Date;
+  cdsMasterFECHA.AsDateTime:= Now;
 end;
 
 procedure TdmReception.cdsMasterCalcFields(DataSet: TDataSet);
@@ -63,9 +67,19 @@ begin
   with cdsReceptionByDate do
   begin
     ParamByName('INI').AsDate:= Date;
-    ParamByName('FIN').AsDate:= Date;
+    ParamByName('FIN').AsDate:= Date + 1;
   end;
   inherited;
+end;
+
+procedure TdmReception.GetCode;
+begin
+  with ssmGetCode do
+  begin
+    ParamByName('ID').AsString:= cdsMasterIDRECEPTION.Value;
+    ExecuteMethod;
+    ClipBoard.AsText:= ParamByName('ReturnParameter').AsString;
+  end;
 end;
 
 procedure TdmReception.ReceptionByDate(ini, fin: TDate);
@@ -74,7 +88,7 @@ begin
   begin
     Close;
     ParamByName('INI').AsDate:= ini;
-    ParamByName('FIN').AsDate:= fin;
+    ParamByName('FIN').AsDate:= fin + 1;
     Open;
   end;
 
@@ -89,15 +103,26 @@ begin
       cdsReceptionByDate.FieldByName('IDRECEPTION').AsString;
     Open;
   end;
-
 end;
 
-procedure TdmReception.PrintReception;
+procedure TdmReception.PrintReception(filtro: string);
 begin
+  with cdsReceptionByDate do
+  begin
+    DisableControls;
+    Filtered:= true;
+    Filter:= filtro;
+  end;
   with frxReceptionByDate do
   begin
     if PrepareReport then
       ShowPreparedReport;
+  end;
+  with cdsReceptionByDate do
+  begin
+    Filter:= EmptyStr;
+    Filtered:= false;
+    EnableControls;
   end;
 end;
 

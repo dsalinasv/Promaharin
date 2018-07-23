@@ -45,6 +45,7 @@ type
     lblCode: TdxLayoutItem;
     lblName: TdxLayoutItem;
     grdListViewNAME: TcxGridDBColumn;
+    grdListViewCODE: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure grdListViewCellDblClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;

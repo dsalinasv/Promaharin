@@ -30,10 +30,20 @@ inherited dmReception: TdmReception
       FieldName = 'IDPRODUCT'
       Size = 38
     end
+    object cdsMasterIDTRUCK: TStringField
+      FieldName = 'IDTRUCK'
+      Size = 38
+    end
+    object cdsMasterIDDRIVER: TStringField
+      FieldName = 'IDDRIVER'
+      Size = 38
+    end
     object cdsMasterCANTIDAD: TFloatField
+      DefaultExpression = '0'
       FieldName = 'CANTIDAD'
     end
     object cdsMasterPRECIO: TFloatField
+      DefaultExpression = '0'
       FieldName = 'PRECIO'
     end
     object cdsMasterIMPORTE: TCurrencyField
@@ -89,7 +99,7 @@ inherited dmReception: TdmReception
     object cdsReceptionByDateCANTIDAD: TFloatField
       FieldName = 'CANTIDAD'
       Origin = 'CANTIDAD'
-      DisplayFormat = '#,#0.00'
+      DisplayFormat = ',0.00;-,0.00'
     end
     object cdsReceptionByDatePRECIO: TFloatField
       FieldName = 'PRECIO'
@@ -275,28 +285,30 @@ inherited dmReception: TdmReception
           Style = 'Header'
         end
         object Memo6: TfrxMemoView
-          Left = 531.318115990678000000
-          Width = 75.008449461478700000
+          Left = 531.318115990000000000
+          Width = 75.008449460000000000
           Height = 22.677180000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          HAlign = haRight
           Memo.UTF8W = (
-            'CANTIDAD')
+            'PESO')
           ParentFont = False
           Style = 'Header'
         end
         object Memo7: TfrxMemoView
-          Left = 606.326565452157000000
-          Width = 64.238867522802000000
+          Left = 606.326565450000000000
+          Width = 64.238867520000000000
           Height = 22.677180000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          HAlign = haRight
           Memo.UTF8W = (
             'PRECIO')
           ParentFont = False
@@ -311,6 +323,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          HAlign = haRight
           Memo.UTF8W = (
             'IMPORTE')
           ParentFont = False
@@ -382,6 +395,8 @@ inherited dmReception: TdmReception
           DataField = 'CANTIDAD'
           DataSet = fdsReceptionByDate
           DataSetName = 'fdsReceptionByDate'
+          DisplayFormat.FormatStr = '#,#0.00'
+          DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
@@ -400,6 +415,8 @@ inherited dmReception: TdmReception
           DataField = 'PRECIO'
           DataSet = fdsReceptionByDate
           DataSetName = 'fdsReceptionByDate'
+          DisplayFormat.FormatStr = '$#,#0.00'
+          DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
@@ -418,6 +435,8 @@ inherited dmReception: TdmReception
           DataField = 'IMPORTE'
           DataSet = fdsReceptionByDate
           DataSetName = 'fdsReceptionByDate'
+          DisplayFormat.FormatStr = '$#,#0.00'
+          DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
@@ -533,5 +552,25 @@ inherited dmReception: TdmReception
     PdfA = False
     Left = 24
     Top = 112
+  end
+  object ssmGetCode: TSqlServerMethod
+    Params = <
+      item
+        DataType = ftWideString
+        Precision = 2000
+        Name = 'id'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftWideString
+        Precision = 2000
+        Name = 'ReturnParameter'
+        ParamType = ptResult
+        Size = 2000
+      end>
+    SQLConnection = dmGlobal.cntPromaharin
+    ServerMethodName = 'TsmReception.GetCode'
+    Left = 112
+    Top = 16
   end
 end

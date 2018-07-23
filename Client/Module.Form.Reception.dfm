@@ -1,106 +1,141 @@
 inherited frmReception: TfrmReception
   Caption = 'Recepci'#243'n de materia prima'
+  ExplicitLeft = 2
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcList: TcxPageControl
-    Top = 56
-    Height = 505
-    ClientRectBottom = 503
+    Top = 110
+    Height = 451
+    ClientRectBottom = 449
     inherited tabData: TcxTabSheet
-      ExplicitLeft = 2
-      ExplicitTop = 28
-      ExplicitWidth = 780
-      ExplicitHeight = 475
       inherited lcData: TdxLayoutControl
-        Height = 475
-        inline PROVIDER_PRECIO_PRECIO: TctlCodeLookup [0]
-          Left = 65
+        Height = 421
+        inline IdProvider_PRECIO_IdProduct: TctlCodeLookup [0]
+          Left = 84
           Top = 37
-          Width = 705
+          Width = 686
           Height = 21
           TabOrder = 1
-          ExplicitLeft = 65
+          ExplicitLeft = 84
           ExplicitTop = 37
-          ExplicitWidth = 705
+          ExplicitWidth = 686
           inherited txtId: TcxDBTextEdit
             DataBinding.DataField = 'IDPROVIDER'
             DataBinding.DataSource = dsMaster
           end
           inherited txtName: TcxTextEdit
-            ExplicitWidth = 624
-            Width = 624
+            ExplicitWidth = 605
+            Width = 605
           end
         end
         object txtPrecio: TcxDBCurrencyEdit
-          Left = 226
-          Top = 91
+          Left = 245
+          Top = 145
           DataBinding.DataField = 'PRECIO'
           DataBinding.DataSource = dsMaster
           Style.BorderColor = clWindowFrame
           Style.BorderStyle = ebs3D
           Style.HotTrack = False
-          TabOrder = 5
+          TabOrder = 7
           Width = 121
         end
         object txtCantidad: TcxDBCurrencyEdit
-          Left = 65
-          Top = 91
+          Left = 84
+          Top = 145
           DataBinding.DataField = 'CANTIDAD'
           DataBinding.DataSource = dsMaster
           Properties.DisplayFormat = ',0.00;-,0.00'
           Style.BorderColor = clWindowFrame
           Style.BorderStyle = ebs3D
           Style.HotTrack = False
-          TabOrder = 4
+          TabOrder = 6
           Width = 121
         end
         object dtpFecha: TcxDBDateEdit
-          Left = 649
+          Left = 84
           Top = 10
           DataBinding.DataField = 'FECHA'
           DataBinding.DataSource = dsMaster
+          Properties.Kind = ckDateTime
           Style.BorderColor = clWindowFrame
           Style.BorderStyle = ebs3D
           Style.HotTrack = False
           Style.ButtonStyle = bts3D
           Style.PopupBorderStyle = epbsFrame3D
           TabOrder = 0
-          Width = 121
+          Width = 157
         end
-        inline PRODUCT: TctlCodeLookup
-          Left = 65
+        inline IdProduct: TctlCodeLookup
+          Left = 84
           Top = 64
-          Width = 705
+          Width = 686
           Height = 21
           TabOrder = 2
-          ExplicitLeft = 65
+          ExplicitLeft = 84
           ExplicitTop = 64
-          ExplicitWidth = 705
+          ExplicitWidth = 686
           inherited txtId: TcxDBTextEdit
             DataBinding.DataField = 'IDPRODUCT'
             DataBinding.DataSource = dsMaster
           end
           inherited txtName: TcxTextEdit
-            ExplicitWidth = 624
-            Width = 624
+            ExplicitWidth = 605
+            Width = 605
           end
         end
         object IMPORTE: TcxDBLabel
           Left = 649
-          Top = 91
+          Top = 145
           DataBinding.DataField = 'IMPORTE'
           DataBinding.DataSource = dsMaster
           Style.HotTrack = False
+          Transparent = True
           Height = 21
           Width = 121
         end
+        inline IdTruck: TctlCodeLookup
+          Left = 84
+          Top = 91
+          Width = 686
+          Height = 21
+          TabOrder = 3
+          ExplicitLeft = 84
+          ExplicitTop = 91
+          ExplicitWidth = 686
+          inherited txtId: TcxDBTextEdit
+            DataBinding.DataField = 'IDTRUCK'
+            DataBinding.DataSource = dsMaster
+          end
+          inherited txtName: TcxTextEdit
+            ExplicitWidth = 605
+            Width = 605
+          end
+        end
+        inline IdDriver: TctlCodeLookup
+          Left = 84
+          Top = 118
+          Width = 686
+          Height = 21
+          TabOrder = 4
+          ExplicitLeft = 84
+          ExplicitTop = 118
+          ExplicitWidth = 686
+          inherited txtId: TcxDBTextEdit
+            DataBinding.DataField = 'IDDRIVER'
+            DataBinding.DataSource = dsMaster
+          end
+          inherited txtName: TcxTextEdit
+            ExplicitWidth = 605
+            Width = 605
+          end
+        end
         inherited lcDataGroup_Root: TdxLayoutGroup
-          ItemIndex = 3
+          ItemIndex = 2
         end
         object lblProveedor: TdxLayoutItem
           Parent = lcDataGroup_Root
           CaptionOptions.Text = 'Proveedor'
-          Control = PROVIDER_PRECIO_PRECIO
+          Control = IdProvider_PRECIO_IdProduct
           ControlOptions.AutoColor = True
           ControlOptions.OriginalHeight = 21
           ControlOptions.OriginalWidth = 172
@@ -120,7 +155,7 @@ inherited frmReception: TfrmReception
         object lblCantidad: TdxLayoutItem
           Parent = dxLayoutAutoCreatedGroup1
           AlignHorz = ahLeft
-          CaptionOptions.Text = 'Cantidad'
+          CaptionOptions.Text = 'Peso'
           Control = txtCantidad
           ControlOptions.OriginalHeight = 21
           ControlOptions.OriginalWidth = 121
@@ -129,18 +164,18 @@ inherited frmReception: TfrmReception
         end
         object lblFecha: TdxLayoutItem
           Parent = lcDataGroup_Root
-          AlignHorz = ahRight
+          AlignHorz = ahLeft
           CaptionOptions.Text = 'Fecha'
           Control = dtpFecha
           ControlOptions.OriginalHeight = 21
-          ControlOptions.OriginalWidth = 121
+          ControlOptions.OriginalWidth = 157
           ControlOptions.ShowBorder = False
           Index = 0
         end
         object lblProducto: TdxLayoutItem
           Parent = lcDataGroup_Root
           CaptionOptions.Text = 'Producto'
-          Control = PRODUCT
+          Control = IdProduct
           ControlOptions.AutoColor = True
           ControlOptions.OriginalHeight = 21
           ControlOptions.OriginalWidth = 705
@@ -160,28 +195,50 @@ inherited frmReception: TfrmReception
         object dxLayoutAutoCreatedGroup1: TdxLayoutAutoCreatedGroup
           Parent = lcDataGroup_Root
           LayoutDirection = ldHorizontal
-          Index = 3
+          Index = 5
           AutoCreated = True
+        end
+        object lblTruck: TdxLayoutItem
+          Parent = lcDataGroup_Root
+          CaptionOptions.Text = 'Equipo/Unidad'
+          Control = IdTruck
+          ControlOptions.AutoColor = True
+          ControlOptions.OriginalHeight = 21
+          ControlOptions.OriginalWidth = 172
+          ControlOptions.ShowBorder = False
+          Index = 3
+        end
+        object lblDriver: TdxLayoutItem
+          Parent = lcDataGroup_Root
+          CaptionOptions.Text = 'Operador'
+          Control = IdDriver
+          ControlOptions.AutoColor = True
+          ControlOptions.OriginalHeight = 21
+          ControlOptions.OriginalWidth = 172
+          ControlOptions.ShowBorder = False
+          Index = 4
         end
       end
     end
     inherited tabList: TcxTabSheet
-      ExplicitLeft = 2
-      ExplicitTop = 28
-      ExplicitWidth = 780
-      ExplicitHeight = 491
       inherited grdList: TcxGrid
-        Height = 475
+        Height = 421
         inherited grdListView: TcxGridDBTableView
           DataController.DataModeController.GridMode = False
           DataController.DataSource = dsReceptionByDate
           DataController.Summary.FooterSummaryItems = <
             item
+              Format = ',0.00;-,0.00'
+              Kind = skSum
+              FieldName = 'CANTIDAD'
+              Column = grdListViewCANTIDAD
+              Sorted = True
+            end
+            item
               Format = '$,0.00;-$,0.00'
               Kind = skSum
               FieldName = 'IMPORTE'
               Column = grdListViewIMPORTE
-              Sorted = True
             end>
           OptionsBehavior.AlwaysShowEditor = False
           OptionsData.Appending = False
@@ -195,6 +252,11 @@ inherited frmReception: TfrmReception
           OptionsView.NoDataToDisplayInfoText = '<No hay datos que mostrar>'
           OptionsView.ShowEditButtons = gsebNever
           OptionsView.Footer = True
+          object ROW: TcxGridDBColumn
+            Caption = '#'
+            OnGetDisplayText = ROWGetDisplayText
+            Width = 20
+          end
           object grdListViewFECHA: TcxGridDBColumn
             Caption = 'Fecha'
             DataBinding.FieldName = 'FECHA'
@@ -1651,28 +1713,163 @@ inherited frmReception: TfrmReception
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
           0000}
+      end
+      item
+        Image.Data = {
+          36100000424D3610000000000000360000002800000020000000200000000100
+          2000000000000010000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000006E4D2E98A97747EA6044288500000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000271C1036B8824DFFB8824DFFB8824DFF1F160D2B000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000049331E65A57545E5865F
+          38BA23190F314C36206AB8824DFFB8824DFFB8824DFF4A341F66281C11378E64
+          3BC5AD7A48F049331E6500000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000000AE7B49F1B8824DFFB882
+          4DFFB27E4BF7AE7B49F1B8824DFFB8824DFFB8824DFFAE7B49F1B37E4BF8B882
+          4DFFB8824DFFA57545E500000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000000000008D643BC4B8824DFFB882
+          4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+          4DFFB8824DFF865F38BA00000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000000271C1036B47F4BF9B882
+          4DFFB8824DFF986B3FD23F2C1A57251A0F333F2C1A57986B3FD2B8824DFFB882
+          4DFFB17D4AF523190F3100000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000001F160D2B49331E65AE7B49F1B882
+          4DFF976B3FD10705030A0000000000000000000000000806030B986B3FD2B882
+          4DFFAD7A48F04E37216C281C1137000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000062452988B8824DFFB8824DFFB8824DFFB882
+          4DFF3F2D1B5800000000000000000000000000000000000000003F2D1B58B882
+          4DFFB8824DFFB8824DFFB8824DFF6E4E2E990000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000A97747EAB8824DFFB8824DFFB8824DFFB882
+          4DFF23180E30000000000000000000000000000000000000000023190F31B882
+          4DFFB8824DFFB8824DFFB8824DFFA97747EA0000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000006B4B2D94B8824DFFB8824DFFB8824DFFB882
+          4DFF3F2D1B5800000000000000000000000000000000000000003F2D1B58B882
+          4DFFB8824DFFB8824DFFB8824DFF5F4328840000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000251A0F334B351F68AD7A48F0B882
+          4DFF976B3FD10705030A0000000000000000000000000806030B986B3FD2B882
+          4DFFAD7A48F047321E631C140C27000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000023180E30B27E4BF7B882
+          4DFFB8824DFF986B3FD23F2C1A5724190F323F2C1A57986B3FD2B8824DFFB882
+          4DFFB47F4BF9281C113700000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000000835D37B6B8824DFFB882
+          4DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+          4DFFB8824DFF90663CC800000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000000A37344E2B8824DFFB882
+          4DFFB37E4BF8AD7A48F0B8824DFFB8824DFFB8824DFFAD7A48F0B07C4AF4B882
+          4DFFB8824DFFAD7A48F000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000047321E63AE7B49F19267
+          3DCA281C11374A341F66B8824DFFB8824DFFB8824DFF4B351F6820170E2D845D
+          37B7A37344E24A341F6649331E65B6804CFC402D1B5900000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000020170E2DB8824DFFB8824DFFB8824DFF251A0F33000000003425
+          1648795633A8291D1139896139BEB8824DFF875F38BB2D20133E7E5935AF3525
+          1649000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000062452988A87746E96C4C2D9500000000000000007E59
+          35AEB8824DFFB7814DFEB8824DFFB8824DFFB8824DFFB7814DFEB8824DFF7955
+          32A7000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000002D20
+          133FB7814CFDB7814DFE7251309E3F2C1A577251309EB7814DFEB7814CFD2A1E
+          123A000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000422E1B5B865F
+          38BAB8824DFF6E4D2E980000000000000000000000006E4D2E98B8824DFF8A61
+          3ABF49331E650000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000001010001B47F4BF9B882
+          4DFFB8824DFF402D1B59000000000000000000000000402D1B59B8824DFFB882
+          4DFFB47F4BF90000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000432F1C5D8860
+          39BCB8824DFF6E4D2E980000000000000000000000006E4D2E98B8824DFF855E
+          38B8402D1B590000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000002A1E
+          123AB7814CFDB7814DFE7251309E3F2C1A577251309EB7814DFEB7814DFE2E21
+          1340000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000007754
+          32A5B8824DFFB7814CFDB8824DFFB8824DFFB8824DFFB7814CFDB8824DFF805B
+          36B2000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000003425
+          16487F5A35B02D20133E875F38BBB8824DFF886039BC291D1139765432A43525
+          1649000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000412E1B5AB47F4BFA47321E6300000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000}
       end>
   end
   inherited actList: TActionList
     object actInsert: TDataSetInsert
       Category = 'Dataset'
-      Caption = '&Insert'
+      Caption = '&Nuevo'
       Hint = 'Insert'
       ImageIndex = 0
+      OnExecute = actInsertExecute
       DataSource = dsMaster
     end
     object actPost: TDataSetPost
       Category = 'Dataset'
-      Caption = 'P&ost'
+      Caption = '&Guardar'
       Hint = 'Post'
       ImageIndex = 1
       DataSource = dsMaster
     end
     object actCancel: TDataSetCancel
       Category = 'Dataset'
-      Caption = '&Cancel'
+      Caption = '&Cancelar'
       Hint = 'Cancel'
       ImageIndex = 3
+      OnExecute = actCancelExecute
       DataSource = dsMaster
     end
     object actConsult: TAction
@@ -1692,13 +1889,18 @@ inherited frmReception: TfrmReception
       ImageIndex = 4
       DataSource = dsReceptionByDate
     end
+    object actGenerate: TAction
+      Caption = 'Generar'
+      ImageIndex = 10
+      OnExecute = actGenerateExecute
+    end
   end
   inherited barList: TdxBarManager
     PixelsPerInch = 96
     DockControlHeights = (
       0
       0
-      56
+      110
       0)
     inherited ToolBar: TdxBar
       ItemLinks = <
@@ -1745,10 +1947,11 @@ inherited frmReception: TfrmReception
         item
           Visible = True
           ItemName = 'dxBarLargeButton2'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarLargeButton3'
         end>
-    end
-    inherited btnClose: TdxBarLargeButton
-      ShowCaption = True
     end
     object dtpFechaInicial: TdxBarDateCombo
       Caption = 'New Item'
@@ -1877,6 +2080,22 @@ inherited frmReception: TfrmReception
       Action = actDelete
       Category = 0
       AutoGrayScale = False
+    end
+    object dxBarSubItem1: TdxBarSubItem
+      Caption = 'New SubItem'
+      Category = 0
+      Visible = ivAlways
+      ItemLinks = <>
+    end
+    object dxBarButton1: TdxBarButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
+      Visible = ivAlways
+    end
+    object dxBarLargeButton3: TdxBarLargeButton
+      Action = actGenerate
+      Category = 0
     end
   end
   object dsReceptionByDate: TDataSource

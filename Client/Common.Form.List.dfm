@@ -4,41 +4,35 @@ inherited frmList: TfrmList
   TextHeight = 13
   object pcList: TcxPageControl [0]
     Left = 0
-    Top = 56
+    Top = 58
     Width = 784
-    Height = 505
+    Height = 503
     Align = alClient
     TabOrder = 0
     Properties.ActivePage = tabData
     Properties.CustomButtons.Buttons = <>
-    ExplicitTop = 42
-    ExplicitHeight = 519
-    ClientRectBottom = 503
-    ClientRectLeft = 2
-    ClientRectRight = 782
-    ClientRectTop = 28
+    ClientRectBottom = 499
+    ClientRectLeft = 4
+    ClientRectRight = 780
+    ClientRectTop = 24
     object tabData: TcxTabSheet
       Caption = 'Datos'
       ImageIndex = 1
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 776
-      ExplicitHeight = 491
       object lcData: TdxLayoutControl
         Left = 0
         Top = 0
-        Width = 780
+        Width = 776
         Height = 475
         Align = alClient
         ParentBackground = True
         TabOrder = 0
-        ExplicitWidth = 776
-        ExplicitHeight = 491
+        Transparent = True
         object txtCode: TcxDBTextEdit
           Left = 52
           Top = 10
           DataBinding.DataField = 'CODE'
           DataBinding.DataSource = dsMaster
+          Properties.ReadOnly = True
           Style.BorderColor = clWindowFrame
           Style.BorderStyle = ebs3D
           Style.HotTrack = False
@@ -54,7 +48,7 @@ inherited frmList: TfrmList
           Style.BorderStyle = ebs3D
           Style.HotTrack = False
           TabOrder = 1
-          Width = 718
+          Width = 714
         end
         object lcDataGroup_Root: TdxLayoutGroup
           AlignHorz = ahClient
@@ -89,15 +83,11 @@ inherited frmList: TfrmList
     object tabList: TcxTabSheet
       Caption = 'Listado'
       ImageIndex = 0
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object grdList: TcxGrid
         Left = 0
         Top = 0
         Width = 776
-        Height = 491
+        Height = 475
         Align = alClient
         TabOrder = 0
         object grdListView: TcxGridDBTableView
@@ -123,7 +113,6 @@ inherited frmList: TfrmList
           Navigator.Buttons.Filter.Enabled = False
           Navigator.Buttons.Filter.Visible = False
           OnCellDblClick = grdListViewCellDblClick
-          DataController.DataModeController.GridMode = True
           DataController.DataSource = dsMaster
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
@@ -142,6 +131,10 @@ inherited frmList: TfrmList
           OptionsView.ShowEditButtons = gsebAlways
           OptionsView.GroupByBox = False
           OptionsView.Indicator = True
+          object grdListViewCODE: TcxGridDBColumn
+            Caption = 'C'#243'digo'
+            DataBinding.FieldName = 'CODE'
+          end
           object grdListViewNAME: TcxGridDBColumn
             Caption = 'Nombre'
             DataBinding.FieldName = 'NAME'
@@ -167,14 +160,14 @@ inherited frmList: TfrmList
     end
     object actPost: TDataSetPost [1]
       Category = 'Dataset'
-      Caption = 'Guadar'
+      Caption = '&Guadar'
       Hint = 'Post'
       ImageIndex = 1
       ShortCut = 114
     end
     object actEdit: TDataSetEdit [2]
       Category = 'Dataset'
-      Caption = '&Editar'
+      Caption = '&Modificar'
       Hint = 'Edit'
       ImageIndex = 2
       ShortCut = 115
@@ -216,7 +209,7 @@ inherited frmList: TfrmList
     DockControlHeights = (
       0
       0
-      56
+      58
       0)
     inherited ToolBar: TdxBar
       AllowClose = True

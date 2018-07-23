@@ -48,7 +48,7 @@ object ctlCodeLookup: TctlCodeLookup
           E0171A811CE8F7E0E9CD0000000049454E44AE426082}
         Kind = bkGlyph
       end>
-    Properties.ValidationOptions = [evoShowErrorIcon, evoAllowLoseFocus]
+    Properties.ValidationOptions = [evoShowErrorIcon]
     Properties.OnButtonClick = txtCodePropertiesButtonClick
     Properties.OnValidate = txtCodePropertiesValidate
     TabOrder = 1

@@ -17,8 +17,8 @@ type
     txtFilter: TcxTextEdit;
     dsSearch: TDataSource;
     grdSearch: TcxGrid;
-    grdSearchDBTableView1: TcxGridDBTableView;
-    grdSearchLevel1: TcxGridLevel;
+    grdSearchView: TcxGridDBTableView;
+    grdSearchLevel: TcxGridLevel;
     actList: TActionList;
     btnOk: TcxButton;
     btnCancel: TcxButton;
@@ -29,14 +29,15 @@ type
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure grdSearchDBTableView1ColumnHeaderClick(Sender: TcxGridTableView;
+    procedure grdSearchViewColumnHeaderClick(Sender: TcxGridTableView;
       AColumn: TcxGridColumn);
-    procedure grdSearchDBTableView1CellDblClick(Sender: TcxCustomGridTableView;
+    procedure grdSearchViewCellDblClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
   private
     FCode: string;
     FTable: string;
+    FFields: string;
     FField: string;
     { Private declarations }
   public
@@ -44,6 +45,7 @@ type
     dmSearch: TdmSearch;
     function GetCode: string;
     property Code: string read FCode write FCode;
+    property Fields: string read FFields write FFields;
     property Table: string read FTable write FTable;
   end;
 
@@ -56,6 +58,7 @@ uses Main.Data.Global;
 procedure TfrmSearch.FormCreate(Sender: TObject);
 begin
   dmSearch:= TdmSearch.Create(Self);
+  FFields:= '*';
   FField:= 'NAME';
 end;
 
@@ -83,8 +86,10 @@ procedure TfrmSearch.FormShow(Sender: TObject);
 begin
   txtFilter.Clear;
   txtFilter.SetFocus;
-  dmSearch.GetByField(FTable, FField, EmptyStr);
-  grdSearchDBTableView1.DataController.CreateAllItems;
+  dmSearch.GetByField(FTable, FFields, FField, EmptyStr);
+  grdSearchView.DataController.CreateAllItems;
+  grdSearchView.GetColumnByFieldName('CODE').Caption:= 'Código';
+  grdSearchView.GetColumnByFieldName('NAME').Caption:= 'Nombre';
 end;
 
 function TfrmSearch.GetCode: string;
@@ -92,24 +97,27 @@ begin
   Exit(dmSearch.cdsGetByField.FieldByName('CODE').Value);
 end;
 
-procedure TfrmSearch.grdSearchDBTableView1CellDblClick(
+procedure TfrmSearch.grdSearchViewCellDblClick(
   Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
   AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
 begin
   btnOk.Click;
 end;
 
-procedure TfrmSearch.grdSearchDBTableView1ColumnHeaderClick(
+procedure TfrmSearch.grdSearchViewColumnHeaderClick(
   Sender: TcxGridTableView; AColumn: TcxGridColumn);
 begin
-  FField:= (AColumn as TcxGridDBColumn).DataBinding.FieldName;
-  lblBusqueda.Caption:= 'BÚSQUEDA POR ' + FField;
-  txtFilter.SetFocus;
+  if AColumn.Tag = 0 then
+  begin
+    FField:= (AColumn as TcxGridDBColumn).DataBinding.FieldName;
+    lblBusqueda.Caption:= 'Búsqueda por ' + AColumn.Caption;
+    txtFilter.SetFocus;
+  end;
 end;
 
 procedure TfrmSearch.txtFilterPropertiesChange(Sender: TObject);
 begin
-  dmSearch.GetByField(FTable, FField, txtFilter.Text);
+  dmSearch.GetByField(FTable, FFields, FField, txtFilter.Text);
 end;
 
 end.

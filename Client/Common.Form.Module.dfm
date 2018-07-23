@@ -4,32 +4,32 @@ inherited frmModule: TfrmModule
   TextHeight = 13
   object pcList: TcxPageControl [0]
     Left = 0
-    Top = 40
+    Top = 58
     Width = 784
-    Height = 521
+    Height = 503
     Align = alClient
     TabOrder = 4
     Properties.ActivePage = tabData
     Properties.CustomButtons.Buttons = <>
-    ClientRectBottom = 519
-    ClientRectLeft = 2
-    ClientRectRight = 782
-    ClientRectTop = 28
+    ExplicitTop = 42
+    ExplicitHeight = 519
+    ClientRectBottom = 499
+    ClientRectLeft = 4
+    ClientRectRight = 780
+    ClientRectTop = 24
     object tabData: TcxTabSheet
       Caption = 'Datos'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitHeight = 491
       object lcData: TdxLayoutControl
         Left = 0
         Top = 0
-        Width = 780
-        Height = 491
+        Width = 776
+        Height = 475
         Align = alClient
         ParentBackground = True
         TabOrder = 0
+        ExplicitHeight = 491
         object lcDataGroup_Root: TdxLayoutGroup
           AlignHorz = ahClient
           AlignVert = avClient
@@ -108,6 +108,14 @@ inherited frmModule: TfrmModule
   end
   inherited barList: TdxBarManager
     PixelsPerInch = 96
+    DockControlHeights = (
+      0
+      0
+      58
+      0)
+    inherited btnClose: TdxBarLargeButton
+      ShowCaption = True
+    end
     object dxBarLargeButton1: TdxBarLargeButton
       Caption = 'Guardar'
       Category = 0

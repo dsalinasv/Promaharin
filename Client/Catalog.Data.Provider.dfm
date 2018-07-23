@@ -9,7 +9,7 @@ inherited dmProvider: TdmProvider
   object dspProduct: TDSProviderConnection
     ServerClassName = 'TsmProduct'
     SQLConnection = dmGlobal.cntPromaharin
-    Left = 96
+    Left = 104
     Top = 16
   end
   object cdsProduct: TClientDataSet
@@ -17,7 +17,7 @@ inherited dmProvider: TdmProvider
     Params = <>
     ProviderName = 'dspProduct'
     RemoteServer = dspProduct
-    Left = 96
+    Left = 104
     Top = 64
   end
 end

@@ -6,6 +6,7 @@ object dmGlobal: TdmGlobal
   object cntPromaharin: TSQLConnection
     ConnectionName = 'DataSnapCONNECTION'
     DriverName = 'DataSnap'
+    KeepConnection = False
     LoginPrompt = False
     Params.Strings = (
       'HostName=localhost'
@@ -16,7 +17,7 @@ object dmGlobal: TdmGlobal
         '.Data.DbxClientDriver,Version=24.0.0.0,Culture=neutral,PublicKey' +
         'Token=91d62ebb5b0d1b1b'
       'DriverName=DataSnap'
-      'Port=8888'
+      'Port=80'
       'Filters={}'
       'CommunicationProtocol=http')
     Left = 24
