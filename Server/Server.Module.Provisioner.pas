@@ -1,4 +1,4 @@
-unit Server.Module.Product;
+unit Server.Module.Provisioner;
 
 interface
 
@@ -9,12 +9,14 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
 
 type
-  TsmProduct = class(TsmGeneral)
-    dspProduct: TDataSetProvider;
-    qryProduct: TFDQuery;
-    qryProductIDPRODUCT: TStringField;
-    qryProductCODE: TIntegerField;
-    qryProductNAME: TStringField;
+  TsmProvisioner = class(TsmGeneral)
+    dspProvisioner: TDataSetProvider;
+    qryProvisioner: TFDQuery;
+    qryProvisionerIDPROVISIONER: TStringField;
+    qryProvisionerCODE: TIntegerField;
+    qryProvisionerNAME: TStringField;
+    qryProvisionerIDFUEL: TStringField;
+    qryProvisionerPRECIO: TFloatField;
   private
     { Private declarations }
   public
@@ -24,8 +26,6 @@ type
 implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
-
-uses Server.Module.Container;
 
 {$R *.dfm}
 

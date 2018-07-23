@@ -1,4 +1,4 @@
-unit Server.Module.Product;
+unit Server.Module.Inventory;
 
 interface
 
@@ -9,23 +9,23 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
 
 type
-  TsmProduct = class(TsmGeneral)
-    dspProduct: TDataSetProvider;
-    qryProduct: TFDQuery;
-    qryProductIDPRODUCT: TStringField;
-    qryProductCODE: TIntegerField;
-    qryProductNAME: TStringField;
+  TsmInventory = class(TsmGeneral)
+    dspInventory: TDataSetProvider;
+    qryInventory: TFDQuery;
+    dspInventoryByDate: TDataSetProvider;
+    qryInventoryByDate: TFDQuery;
   private
     { Private declarations }
   public
     { Public declarations }
   end;
 
+var
+  smInventory: TsmInventory;
+
 implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
-
-uses Server.Module.Container;
 
 {$R *.dfm}
 

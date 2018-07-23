@@ -1,36 +1,36 @@
-inherited smProduct: TsmProduct
+inherited smSupplier: TsmSupplier
   OldCreateOrder = True
-  object dspProduct: TDataSetProvider
-    DataSet = qryProduct
+  object dspSupplier: TDataSetProvider
+    DataSet = qrySupplier
     ResolveToDataSet = True
     Options = [poPropogateChanges, poUseQuoteChar]
     AfterUpdateRecord = dspAfterUpdateRecord
     Left = 24
     Top = 56
   end
-  object qryProduct: TFDQuery
+  object qrySupplier: TFDQuery
     Connection = smContainer.FDConnection
     UpdateOptions.AssignedValues = [uvGeneratorName]
-    UpdateOptions.GeneratorName = 'GENFUEL'
-    UpdateOptions.UpdateTableName = 'PRODUCT'
+    UpdateOptions.GeneratorName = 'GENSUPPLIER'
+    UpdateOptions.UpdateTableName = 'SUPPLIER'
     UpdateOptions.AutoIncFields = 'CODE'
     SQL.Strings = (
-      'select * from PRODUCT order by code')
+      'select * from SUPPLIER order by code')
     Left = 24
     Top = 8
-    object qryProductIDPRODUCT: TStringField
-      FieldName = 'IDPRODUCT'
-      Origin = 'IDPRODUCT'
+    object qrySupplierIDSUPPLIER: TStringField
+      FieldName = 'IDSUPPLIER'
+      Origin = 'IDSUPPLIER'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 38
     end
-    object qryProductCODE: TIntegerField
+    object qrySupplierCODE: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'CODE'
       Origin = 'CODE'
     end
-    object qryProductNAME: TStringField
+    object qrySupplierNAME: TStringField
       FieldName = 'NAME'
       Origin = 'NAME'
       Size = 50

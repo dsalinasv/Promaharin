@@ -1,4 +1,4 @@
-unit Server.Module.Provider;
+unit Server.Module.Truck;
 
 interface
 
@@ -9,18 +9,19 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
 
 type
-  TsmProvider = class(TsmGeneral)
-    dspProvider: TDataSetProvider;
-    qryProvider: TFDQuery;
-    qryProviderIDPROVIDER: TStringField;
-    qryProviderCODE: TIntegerField;
-    qryProviderNAME: TStringField;
-    qryProviderRAZON_SOCIAL: TStringField;
-    qryProviderTELEFONO: TStringField;
-    qryProviderCONTACTO: TStringField;
-    qryProviderDIRECCION: TStringField;
-    qryProviderIDPRODUCT: TStringField;
-    qryProviderPRECIO: TFloatField;
+  TsmTruck = class(TsmGeneral)
+    dspTruck: TDataSetProvider;
+    qryTruck: TFDQuery;
+    qryTruckIDTRUCK: TStringField;
+    qryTruckCODE: TIntegerField;
+    qryTruckNAME: TStringField;
+    qryTruckIDFUEL: TStringField;
+    qryTruckPRECIO: TFloatField;
+    qryTruckMARCA: TStringField;
+    qryTruckMODELO: TIntegerField;
+    qryTruckPLACAS: TStringField;
+    qryTruckVIGENCIA_TARJETA: TSQLTimeStampField;
+    qryTruckVIGENCIA_SEGURO: TSQLTimeStampField;
   private
     { Private declarations }
   public

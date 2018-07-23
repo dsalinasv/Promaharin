@@ -2,7 +2,7 @@ unit Server.Module.Container;
 
 interface
 
-uses System.SysUtils, System.Classes,
+uses System.SysUtils, System.Classes, Datasnap.DSReflect,
     Datasnap.DSHTTPCommon, Datasnap.DSHTTP, Datasnap.DSSession,
   Datasnap.DSServer, Datasnap.DSCommonServer, System.Generics.Collections,
   IPPeerServer, IPPeerAPI, Datasnap.DSAuth, FireDAC.Stan.Intf,
@@ -15,10 +15,7 @@ type
   TsmContainer = class(TDataModule)
     DSServer: TDSServer;
     DSHTTPService: TDSHTTPService;
-    dscGlobal: TDSServerClass;
-    dscProvider: TDSServerClass;
-    dscProduct: TDSServerClass;
-    dscReception: TDSServerClass;
+    FDConnection: TFDConnection;
     procedure dscGetClass(DSServerClass: TDSServerClass;
       var PersistentClass: TPersistentClass);
     procedure DSServerDisconnect(DSConnectEventObject: TDSConnectEventObject);
@@ -29,6 +26,14 @@ type
     ListofConnection : TDictionary<Integer, TFDConnection>;
   public
     function GetConnection : TFDConnection;
+  end;
+  TSimpleServerClass = class(TDSServerClass)
+  private
+    FPersistentClass: TPersistentClass;
+  public
+    constructor Create(AClass: TPersistentClass);
+  published
+    property PersistentClass: TPersistentClass read FPersistentClass;
   end;
 
 var
@@ -43,12 +48,42 @@ implementation
 {$R *.dfm}
 
 uses
+  Datasnap.DSNames,
+  Datasnap.DSServerResStrs,
   Server.Resource.Strings,
   Server.Module.Global,
   Server.Module.General,
   Server.Module.Product,
   Server.Module.Provider,
-  Server.Module.Reception;
+  Server.Module.Provisioner,
+  Server.Module.Reception,
+  Server.Module.Truck,
+  Server.Module.Destination,
+  Server.Module.Driver,
+  Server.Module.Supplier,
+  Server.Module.Fuel,
+  Server.Module.Refuel,
+  Server.Module.Inventory,
+  Server.Module.Stock,
+  Server.Module.Batch;
+
+procedure RegisterServerClasses;
+begin
+  TSimpleServerClass.Create(TsmGlobal);
+  TSimpleServerClass.Create(TsmProduct);
+  TSimpleServerClass.Create(TsmProvider);
+  TSimpleServerClass.Create(TsmProvisioner);
+  TSimpleServerClass.Create(TsmReception);
+  TSimpleServerClass.Create(TsmTruck);
+  TSimpleServerClass.Create(TsmDestination);
+  TSimpleServerClass.Create(TsmDriver);
+  TSimpleServerClass.Create(TsmSupplier);
+  TSimpleServerClass.Create(TsmFuel);
+  TSimpleServerClass.Create(TsmRefuel);
+  TSimpleServerClass.Create(TsmInventory);
+  TSimpleServerClass.Create(TsmStock);
+  TSimpleServerClass.Create(TsmBatch);
+end;
 
 procedure TsmContainer.DataModuleCreate(Sender: TObject);
 begin
@@ -60,10 +95,10 @@ begin
   FreeAndNil(ListofConnection);
 end;
 
-procedure TsmContainer.dscGetClass(
-  DSServerClass: TDSServerClass; var PersistentClass: TPersistentClass);
+procedure TsmContainer.dscGetClass(DSServerClass: TDSServerClass;
+  var PersistentClass: TPersistentClass);
 begin
-  PersistentClass:= GetClass(StringReplace(DSServerClass.Name, 'dsc', 'Tsm', []));
+  PersistentClass:= (DSServerClass as TSimpleServerClass).PersistentClass;
 end;
 
 function BindPort(Aport: Integer): Boolean;
@@ -172,6 +207,8 @@ var
   LResponse: string;
 begin
   LModule := smContainer;
+  RegisterServerClasses;
+  StartServer(LModule);
     try
       if LModule.DSServer.Started then
         Writeln(sServerIsRunning);
@@ -226,11 +263,20 @@ begin
   begin
     dbconn := TFDConnection.Create(nil);
     dbconn.Params.Clear;
-    dbconn.ConnectionDefName := 'Promharin';
+    dbconn.ConnectionDefName := 'Promaharin';
 
     ListofConnection.Add(TDSSessionManager.GetThreadSession.Id, dbconn);
     Result := dbconn;
   end;
+end;
+
+constructor TSimpleServerClass.Create(AClass: TPersistentClass);
+begin
+  inherited Create(smContainer);
+  FPersistentClass := AClass;
+  Self.Server := smContainer.DSServer;
+  Self.LifeCycle := TDSLifeCycle.Invocation;
+  Self.OnGetClass:= smContainer.dscGetClass;
 end;
 
 initialization

@@ -1,4 +1,4 @@
-unit Server.Module.Product;
+unit Server.Module.Batch;
 
 interface
 
@@ -9,12 +9,15 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
 
 type
-  TsmProduct = class(TsmGeneral)
-    dspProduct: TDataSetProvider;
-    qryProduct: TFDQuery;
-    qryProductIDPRODUCT: TStringField;
-    qryProductCODE: TIntegerField;
-    qryProductNAME: TStringField;
+  TsmBatch = class(TsmGeneral)
+    dspBatch: TDataSetProvider;
+    qryBatch: TFDQuery;
+    qryBatchDetail: TFDQuery;
+    dsBatch: TDataSource;
+    dspBatchStatus: TDataSetProvider;
+    qryBatchStatus: TFDQuery;
+    dspBatchByDates: TDataSetProvider;
+    qryBatchByDates: TFDQuery;
   private
     { Private declarations }
   public
@@ -23,7 +26,7 @@ type
 
 implementation
 
-{%CLASSGROUP 'System.Classes.TPersistent'}
+{%CLASSGROUP 'Vcl.Controls.TControl'}
 
 uses Server.Module.Container;
 

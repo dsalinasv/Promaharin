@@ -1,4 +1,4 @@
-unit Server.Module.Product;
+unit Server.Module.Destination;
 
 interface
 
@@ -6,15 +6,15 @@ uses
   System.SysUtils, System.Classes, Server.Module.General, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider, DBClient;
 
 type
-  TsmProduct = class(TsmGeneral)
-    dspProduct: TDataSetProvider;
-    qryProduct: TFDQuery;
-    qryProductIDPRODUCT: TStringField;
-    qryProductCODE: TIntegerField;
-    qryProductNAME: TStringField;
+  TsmDestination = class(TsmGeneral)
+    dspDestination: TDataSetProvider;
+    qryDestination: TFDQuery;
+    qryDestinationIDDESTINATION: TStringField;
+    qryDestinationCODE: TIntegerField;
+    qryDestinationNAME: TStringField;
   private
     { Private declarations }
   public
@@ -23,7 +23,7 @@ type
 
 implementation
 
-{%CLASSGROUP 'System.Classes.TPersistent'}
+{%CLASSGROUP 'Vcl.Controls.TControl'}
 
 uses Server.Module.Container;
 

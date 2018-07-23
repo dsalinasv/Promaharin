@@ -1,4 +1,4 @@
-unit Server.Module.Provider;
+unit Server.Module.Refuel;
 
 interface
 
@@ -9,18 +9,13 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
 
 type
-  TsmProvider = class(TsmGeneral)
-    dspProvider: TDataSetProvider;
-    qryProvider: TFDQuery;
-    qryProviderIDPROVIDER: TStringField;
-    qryProviderCODE: TIntegerField;
-    qryProviderNAME: TStringField;
-    qryProviderRAZON_SOCIAL: TStringField;
-    qryProviderTELEFONO: TStringField;
-    qryProviderCONTACTO: TStringField;
-    qryProviderDIRECCION: TStringField;
-    qryProviderIDPRODUCT: TStringField;
-    qryProviderPRECIO: TFloatField;
+  TsmRefuel = class(TsmGeneral)
+    dspRefuel: TDataSetProvider;
+    qryRefuel: TFDQuery;
+    dspRefuelByDate: TDataSetProvider;
+    qryRefuelByDate: TFDQuery;
+    dsRefuel: TDataSource;
+    qryRefuelDestination: TFDQuery;
   private
     { Private declarations }
   public

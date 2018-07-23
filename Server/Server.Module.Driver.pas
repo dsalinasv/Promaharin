@@ -1,4 +1,4 @@
-unit Server.Module.Product;
+unit Server.Module.Driver;
 
 interface
 
@@ -9,12 +9,12 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
 
 type
-  TsmProduct = class(TsmGeneral)
-    dspProduct: TDataSetProvider;
-    qryProduct: TFDQuery;
-    qryProductIDPRODUCT: TStringField;
-    qryProductCODE: TIntegerField;
-    qryProductNAME: TStringField;
+  TsmDriver = class(TsmGeneral)
+    dspDriver: TDataSetProvider;
+    qryDriver: TFDQuery;
+    qryDriverIDDRIVER: TStringField;
+    qryDriverCODE: TIntegerField;
+    qryDriverNAME: TStringField;
   private
     { Private declarations }
   public
@@ -24,8 +24,6 @@ type
 implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
-
-uses Server.Module.Container;
 
 {$R *.dfm}
 

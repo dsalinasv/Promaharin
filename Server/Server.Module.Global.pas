@@ -23,7 +23,7 @@ type
     function CheckFolio(iFolio: integer; sTable: string): boolean;
     function GetById(sId, sTable: string): TDataSet;
     function GetByCode(sCode, sTable: string): TDataSet;
-    function GetByField(sTable, sField ,sName: string): TDataSet;
+    function GetByField(sTable, sFields, sField ,sName: string): TDataSet;
   end;
 
 implementation
@@ -75,6 +75,7 @@ begin
     SQL.Clear;
     SQL.Add('select * from ' + sTable);
     SQL.Add('where code = :code');
+    SQL.Add('order by code');
     ParamByName('code').AsString:= sCode;
     Open;
   end;
@@ -95,22 +96,20 @@ begin
   Exit(qryGlobal);
 end;
 
-function TsmGlobal.GetByField(sTable, sField ,sName: string): TDataSet;
+function TsmGlobal.GetByField(sTable, sFields, sField ,sName: string): TDataSet;
 begin
   with qryGlobal do
   begin
     Close;
     SQL.Clear;
-    SQL.Add('select * from ' + sTable);
+    SQL.Add('select ' + sFields + ' from ' + sTable);
     SQL.Add('where ' + sField + ' like :' + sField);
+    SQL.Add('order by code');
     ParamByName(sField).AsString:= '%' + sName + '%';
     Open;
   end;
   Exit(qryGlobal);
 end;
-
-initialization
-  RegisterClass(TsmGlobal);
 
 end.
 

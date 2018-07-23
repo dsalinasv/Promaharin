@@ -3,7 +3,7 @@ unit Server.Module.General;
 interface
 
 uses System.SysUtils, System.Classes, System.Json,
-    DataSnap.DSProviderDataModuleAdapter,
+    DataSnap.DSProviderDataModuleAdapter, DBClient,
     Datasnap.DSServer, Datasnap.DSAuth, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
@@ -12,6 +12,9 @@ uses System.SysUtils, System.Classes, System.Json,
 type
   TsmGeneral = class(TDSServerModule)
     procedure DSServerModuleCreate(Sender: TObject);
+    procedure dspAfterUpdateRecord(Sender: TObject;
+      SourceDS: TDataSet; DeltaDS: TCustomClientDataSet;
+      UpdateKind: TUpdateKind);
   private
     { Private declarations }
   public
@@ -26,6 +29,16 @@ uses Server.Module.Container;
 
 {$R *.dfm}
 
+procedure TsmGeneral.dspAfterUpdateRecord(Sender: TObject;
+  SourceDS: TDataSet; DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+begin
+  if UpdateKind = ukInsert then
+  begin
+    DeltaDS.Edit;
+    DeltaDS.FieldByName('CODE').NewValue:= SourceDS.FieldByName('CODE').AsInteger;
+  end;
+end;
+
 procedure TsmGeneral.DSServerModuleCreate(Sender: TObject);
 var
   i: integer;
@@ -34,9 +47,6 @@ begin
     if Components[i] is TFDQuery then
        TFDQuery(Components[i]).Connection := smContainer.GetConnection;
 end;
-
-initialization
-  RegisterClass(TsmGeneral);
 
 end.
 

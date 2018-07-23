@@ -6,42 +6,21 @@ object smContainer: TsmContainer
   Width = 415
   object DSServer: TDSServer
     OnDisconnect = DSServerDisconnect
+    AutoStart = False
     Left = 24
-    Top = 11
+    Top = 8
   end
   object DSHTTPService: TDSHTTPService
-    HttpPort = 8888
     Server = DSServer
     Filters = <>
-    Left = 24
-    Top = 112
+    Left = 96
+    Top = 8
   end
-  object dscGlobal: TDSServerClass
-    OnGetClass = dscGetClass
-    Server = DSServer
-    LifeCycle = 'Server'
-    Left = 24
-    Top = 59
-  end
-  object dscProvider: TDSServerClass
-    OnGetClass = dscGetClass
-    Server = DSServer
-    LifeCycle = 'Invocation'
-    Left = 104
-    Top = 59
-  end
-  object dscProduct: TDSServerClass
-    OnGetClass = dscGetClass
-    Server = DSServer
-    LifeCycle = 'Invocation'
-    Left = 104
-    Top = 11
-  end
-  object dscReception: TDSServerClass
-    OnGetClass = dscGetClass
-    Server = DSServer
-    LifeCycle = 'Invocation'
-    Left = 104
-    Top = 112
+  object FDConnection: TFDConnection
+    Params.Strings = (
+      'ConnectionDef=Promaharin')
+    LoginPrompt = False
+    Left = 176
+    Top = 8
   end
 end

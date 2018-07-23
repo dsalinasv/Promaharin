@@ -1,36 +1,35 @@
-inherited smProduct: TsmProduct
+inherited smDriver: TsmDriver
   OldCreateOrder = True
-  object dspProduct: TDataSetProvider
-    DataSet = qryProduct
+  object dspDriver: TDataSetProvider
+    DataSet = qryDriver
     ResolveToDataSet = True
     Options = [poPropogateChanges, poUseQuoteChar]
-    AfterUpdateRecord = dspAfterUpdateRecord
     Left = 24
     Top = 56
   end
-  object qryProduct: TFDQuery
+  object qryDriver: TFDQuery
     Connection = smContainer.FDConnection
     UpdateOptions.AssignedValues = [uvGeneratorName]
-    UpdateOptions.GeneratorName = 'GENFUEL'
-    UpdateOptions.UpdateTableName = 'PRODUCT'
+    UpdateOptions.GeneratorName = 'GENDRIVER'
+    UpdateOptions.UpdateTableName = 'DRIVER'
     UpdateOptions.AutoIncFields = 'CODE'
     SQL.Strings = (
-      'select * from PRODUCT order by code')
+      'select * from DRIVER order by code')
     Left = 24
     Top = 8
-    object qryProductIDPRODUCT: TStringField
-      FieldName = 'IDPRODUCT'
-      Origin = 'IDPRODUCT'
+    object qryDriverIDDRIVER: TStringField
+      FieldName = 'IDDRIVER'
+      Origin = 'IDDRIVER'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 38
     end
-    object qryProductCODE: TIntegerField
+    object qryDriverCODE: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'CODE'
       Origin = 'CODE'
     end
-    object qryProductNAME: TStringField
+    object qryDriverNAME: TStringField
       FieldName = 'NAME'
       Origin = 'NAME'
       Size = 50
