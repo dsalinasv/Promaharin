@@ -3,17 +3,13 @@ unit Server.Module.Refuel;
 interface
 
 uses
-  System.SysUtils, System.Classes, Server.Module.General, FireDAC.Stan.Intf,
+  System.SysUtils, System.Classes, Server.Common.Module, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
 
 type
-  TsmRefuel = class(TsmGeneral)
-    dspRefuel: TDataSetProvider;
-    qryRefuel: TFDQuery;
-    dspRefuelByDate: TDataSetProvider;
-    qryRefuelByDate: TFDQuery;
+  TsmRefuel = class(TsmModule)
     dsRefuel: TDataSource;
     qryRefuelDestination: TFDQuery;
   private
@@ -25,8 +21,6 @@ type
 implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
-
-uses Server.Module.Container;
 
 {$R *.dfm}
 

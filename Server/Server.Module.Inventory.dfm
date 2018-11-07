@@ -1,18 +1,11 @@
 inherited smInventory: TsmInventory
   OldCreateOrder = True
-  object dspInventory: TDataSetProvider
-    DataSet = qryInventory
-    Left = 24
-    Top = 56
-  end
-  object qryInventory: TFDQuery
+  inherited qryMaster: TFDQuery
     Connection = smContainer.FDConnection
     UpdateOptions.UpdateTableName = 'INVENTORY'
     SQL.Strings = (
       'select * from INVENTORY'
       'where IDINVENTORY = :IDINVENTORY')
-    Left = 24
-    Top = 8
     ParamData = <
       item
         Name = 'IDINVENTORY'
@@ -22,16 +15,11 @@ inherited smInventory: TsmInventory
         Value = Null
       end>
   end
-  object dspInventoryByDate: TDataSetProvider
-    DataSet = qryInventoryByDate
-    Left = 112
-    Top = 56
-  end
-  object qryInventoryByDate: TFDQuery
+  inherited qryConsult: TFDQuery
     Connection = smContainer.FDConnection
     UpdateOptions.UpdateTableName = 'INVENTORY'
     SQL.Strings = (
-      'select r.idinventory, r.fecha,'
+      'select r.idinventory, r.fecha, r.folio,'
       '  p.code || '#39' '#39' || p.name as provisioner,'
       '  f.code || '#39' '#39' || f.name as combustible,'
       '  r.cantidad, r.precio, r.cantidad * r.precio as subtotal,'
@@ -43,7 +31,6 @@ inherited smInventory: TsmInventory
       'where fecha >= :ini and fecha < :fin'
       'order by fecha')
     Left = 112
-    Top = 8
     ParamData = <
       item
         Name = 'INI'
@@ -56,5 +43,8 @@ inherited smInventory: TsmInventory
         DataType = ftTimeStamp
         ParamType = ptInput
       end>
+  end
+  inherited dspConsult: TDataSetProvider
+    Left = 112
   end
 end

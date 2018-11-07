@@ -1,14 +1,12 @@
 inherited smReception: TsmReception
   OldCreateOrder = True
   Height = 153
-  object qryReception: TFDQuery
+  inherited qryMaster: TFDQuery
     Connection = smContainer.FDConnection
     UpdateOptions.UpdateTableName = 'RECEPTION'
     SQL.Strings = (
       'select * from RECEPTION'
       'where IDRECEPTION = :IDRECEPTION')
-    Left = 24
-    Top = 8
     ParamData = <
       item
         Name = 'IDRECEPTION'
@@ -18,12 +16,7 @@ inherited smReception: TsmReception
         Value = Null
       end>
   end
-  object dspReception: TDataSetProvider
-    DataSet = qryReception
-    Left = 24
-    Top = 56
-  end
-  object qryReceptionByDates: TFDQuery
+  inherited qryConsult: TFDQuery
     Connection = smContainer.FDConnection
     UpdateOptions.UpdateTableName = 'RECEPTION'
     SQL.Strings = (
@@ -36,7 +29,6 @@ inherited smReception: TsmReception
       'where fecha >= :ini and fecha < :fin'
       'order by fecha')
     Left = 112
-    Top = 8
     ParamData = <
       item
         Name = 'INI'
@@ -50,14 +42,7 @@ inherited smReception: TsmReception
         ParamType = ptInput
       end>
   end
-  object dspReceptionByDates: TDataSetProvider
-    DataSet = qryReceptionByDates
+  inherited dspConsult: TDataSetProvider
     Left = 112
-    Top = 56
-  end
-  object qryGeneral: TFDQuery
-    Connection = smContainer.FDConnection
-    Left = 24
-    Top = 104
   end
 end

@@ -1,4 +1,4 @@
-unit Server.Module.Inventory;
+unit Server.Module.Quotation;
 
 interface
 
@@ -6,10 +6,14 @@ uses
   System.SysUtils, System.Classes, Server.Common.Module, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
+  Datasnap.Provider, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TsmInventory = class(TsmModule)
+  TsmQuotation = class(TsmModule)
+    qryName: TFDQuery;
+    dspName: TDataSetProvider;
+    qryQuotationCondition: TFDQuery;
+    dsQuotation: TDataSource;
   private
     { Private declarations }
   public

@@ -1,15 +1,19 @@
-unit Server.Module.Inventory;
+unit Server.Catalog.Fuel;
 
 interface
 
 uses
-  System.SysUtils, System.Classes, Server.Common.Module, FireDAC.Stan.Intf,
+  System.SysUtils, System.Classes, Server.Common.List, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.Provider;
 
 type
-  TsmInventory = class(TsmModule)
+  TsmFuel = class(TsmList)
+    qryFuelIDFUEL: TStringField;
+    qryFuelCODE: TIntegerField;
+    qryFuelNAME: TStringField;
+    qryFuelPRECIO: TFloatField;
   private
     { Private declarations }
   public

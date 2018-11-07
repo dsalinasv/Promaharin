@@ -97,26 +97,26 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="Server.Resource.Strings.pas"/>
-        <DCCReference Include="Server.Module.Container.pas">
+        <DCCReference Include="Server.Core.Container.pas">
             <Form>smContainer</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Global.pas">
+        <DCCReference Include="Server.Common.Global.pas">
             <Form>smGlobal</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.General.pas">
-            <Form>smGeneral</Form>
+        <DCCReference Include="Server.Common.Master.pas">
+            <Form>smMaster</Form>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Product.pas">
+        <DCCReference Include="Server.Catalog.Product.pas">
             <Form>smProduct</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Provider.pas">
+        <DCCReference Include="Server.Catalog.Provider.pas">
             <Form>smProvider</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
@@ -126,22 +126,22 @@
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Truck.pas">
+        <DCCReference Include="Server.Catalog.Truck.pas">
             <Form>smTruck</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Destination.pas">
+        <DCCReference Include="Server.Catalog.Destination.pas">
             <Form>smDestination</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Driver.pas">
+        <DCCReference Include="Server.Catalog.Driver.pas">
             <Form>smDriver</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Supplier.pas">
+        <DCCReference Include="Server.Catalog.Supplier.pas">
             <Form>smSupplier</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
@@ -151,12 +151,12 @@
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Fuel.pas">
+        <DCCReference Include="Server.Catalog.Fuel.pas">
             <Form>smFuel</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Provisioner.pas">
+        <DCCReference Include="Server.Catalog.Provisioner.pas">
             <Form>smProvisioner</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
@@ -166,13 +166,73 @@
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Server.Module.Stock.pas">
+        <DCCReference Include="Server.Report.Stock.pas">
             <Form>smStock</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
         <DCCReference Include="Server.Module.Batch.pas">
             <Form>smBatch</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Catalog.Account.pas">
+            <Form>smAccount</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Catalog.Category.pas">
+            <Form>smCategory</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Common.Module.pas">
+            <Form>smModule</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Common.List.pas">
+            <Form>smList</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Module.Outputs.pas">
+            <Form>smOutputs</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Module.Inputs.pas">
+            <Form>smInputs</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Catalog.Client.pas">
+            <Form>smClient</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Module.Quotation.pas">
+            <Form>smQuotation</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Catalog.Condition.pas">
+            <Form>smCondition</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Catalog.Seller.pas">
+            <Form>smSeller</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Catalog.Caterer.pas">
+            <Form>smCaterer</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDSServerModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Server.Module.Order.pas">
+            <Form>smOrder</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
@@ -196,6 +256,10 @@
                 <Source>
                     <Source Name="MainSource">PromaharinServer.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k250.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp250.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
                 <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
