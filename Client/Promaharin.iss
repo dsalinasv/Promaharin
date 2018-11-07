@@ -3,8 +3,8 @@
 
 #define MyAppName "Promaharin"
 #define MyAppVersion "1.0"
-#define MyAppPublisher "CoachDelphi"
-#define MyAppURL "http://www.coachdelphi.com/"
+#define MyAppPublisher "SALISOFT"
+#define MyAppURL "http://salisoft.com.mx/"
 #define MyAppExeName "PromaharinClient.exe"
 
 [Setup]

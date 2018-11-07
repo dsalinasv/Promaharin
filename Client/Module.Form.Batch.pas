@@ -16,31 +16,12 @@ uses
   cxContainer, cxTextEdit, cxCurrencyEdit, cxDBEdit, cxMaskEdit, cxDropDownEdit,
   cxCalendar, cxLabel, cxDBLabel, dxBarExtItems, Vcl.DBActns, cxDBLookupComboBox,
   cxDataControllerConditionalFormattingRulesManagerDialog, cxLookupEdit,
-  cxDBLookupEdit;
+  cxDBLookupEdit, cxCheckBox;
 
 type
   TfrmBatch = class(TfrmModule)
     dtpFecha: TcxDBDateEdit;
     lblFecha: TdxLayoutItem;
-    dtpFechaInicial: TdxBarDateCombo;
-    lblFechaInicial: TdxBarStatic;
-    lblFechaFinal: TdxBarStatic;
-    dtpFechaFinal: TdxBarDateCombo;
-    actInsert: TDataSetInsert;
-    actPost: TDataSetPost;
-    actCancel: TDataSetCancel;
-    btnInsert: TdxBarLargeButton;
-    btnPost: TdxBarLargeButton;
-    btnCancel: TdxBarLargeButton;
-    btnConsult: TdxBarLargeButton;
-    actConsult: TAction;
-    dsBatchByDate: TDataSource;
-    actPrint: TAction;
-    btnPrint: TdxBarLargeButton;
-    btnDelete: TdxBarLargeButton;
-    actDelete: TDataSetDelete;
-    dxBarSubItem1: TdxBarSubItem;
-    dxBarButton1: TdxBarButton;
     grdListViewFECHA: TcxGridDBColumn;
     grdListViewCODIGO: TcxGridDBColumn;
     grdListViewSTATUS: TcxGridDBColumn;
@@ -57,18 +38,13 @@ type
     grdDetailViewFECHA: TcxGridDBColumn;
     grdDetailViewCODIGO: TcxGridDBColumn;
     grdDetailViewCANTIDAD: TcxGridDBColumn;
+    grdDetailViewIMPRESO: TcxGridDBColumn;
+    btnDesigner: TdxBarLargeButton;
+    actDesigner: TAction;
     btnLabel: TdxBarLargeButton;
     actLabel: TAction;
-    procedure actConsultExecute(Sender: TObject);
-    procedure grdListViewCellDblClick(Sender: TcxCustomGridTableView;
-      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
-      AShift: TShiftState; var AHandled: Boolean);
-    procedure actPrintExecute(Sender: TObject);
-    procedure ROWGetDisplayText(Sender: TcxCustomGridTableItem;
-      ARecord: TcxCustomGridRecord; var AText: string);
     procedure actLabelExecute(Sender: TObject);
-    procedure actInsertExecute(Sender: TObject);
-    procedure actCancelExecute(Sender: TObject);
+    procedure actDesignerExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -81,47 +57,35 @@ implementation
 
 uses Module.Data.Batch;
 
-procedure TfrmBatch.actCancelExecute(Sender: TObject);
+procedure TfrmBatch.actDesignerExecute(Sender: TObject);
 begin
-  dmMaster.cdsMaster.Cancel;
-  CleanControl(Self);
-end;
-
-procedure TfrmBatch.actConsultExecute(Sender: TObject);
-begin
-  (dmMaster as TdmBatch).BatchByDate
-    (dtpFechaInicial.Date, dtpFechaFinal.Date);
-end;
-
-procedure TfrmBatch.actInsertExecute(Sender: TObject);
-begin
-  dmMaster.cdsMaster.Append;
-  CleanControl(Self);
+  (dmMaster as TdmBatch).DesignLabel;
 end;
 
 procedure TfrmBatch.actLabelExecute(Sender: TObject);
+var
+  c,i,j: integer;
 begin
-  (dmMaster as TdmBatch).PrintLabel;
-end;
-
-procedure TfrmBatch.actPrintExecute(Sender: TObject);
-begin
-  (dmMaster as TdmBatch).PrintBatch(grdListView.DataController.Filter.FilterText);
-end;
-
-procedure TfrmBatch.grdListViewCellDblClick(Sender: TcxCustomGridTableView;
-  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
-  AShift: TShiftState; var AHandled: Boolean);
-begin
-  inherited;
-  (dmMaster as TdmBatch).BatchById;
-end;
-
-procedure TfrmBatch.ROWGetDisplayText(Sender: TcxCustomGridTableItem;
-  ARecord: TcxCustomGridRecord; var AText: string);
-begin
-  AText := IntToStr(Sender.GridView.DataController.GetRowIndexByRecordIndex(
-    ARecord.RecordIndex, False) + 1);
+  with (dmMaster as TdmBatch) do
+  begin
+    if cdsLabel.Active then
+    begin
+      cdsLabel.EmptyDataSet;
+      cdsLabel.Close;
+    end;
+    cdsLabel.CreateDataSet;
+    for i:= 0 to Pred(grdDetailView.Controller.SelectedRecordCount) do
+    begin
+      c:= grdDetailView.Controller.SelectedRecords[i].Values[2];
+      for j := 1 to c do
+      begin
+        cdsLabel.Append;
+        cdsLabelFecha.AsDateTime:= grdDetailView.Controller.SelectedRecords[i].Values[0];
+        cdsLabelLote.AsString:= grdDetailView.Controller.SelectedRecords[i].Values[1];
+      end;
+    end;
+  end;
+ (dmMaster as TdmBatch).PrintLabel;
 end;
 
 initialization

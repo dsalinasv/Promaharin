@@ -100,8 +100,8 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>PromaharinClient_Icon.ico</Icon_MainIcon>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Build>10</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.10;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>79</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.79;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -141,7 +141,7 @@
         <DCCReference Include="Common.Form.List.pas">
             <Form>frmList</Form>
         </DCCReference>
-        <DCCReference Include="Core.Data.Master.pas">
+        <DCCReference Include="Common.Data.Master.pas">
             <Form>dmMaster</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
@@ -291,6 +291,125 @@
         </DCCReference>
         <DCCReference Include="Module.Form.Reception.pas">
             <Form>frmReception</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Main.Form.Splash.pas">
+            <Form>frmSplash</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Common.Data.Module.pas">
+            <Form>dmModule</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Account.pas">
+            <Form>dmAccount</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Account.pas">
+            <Form>frmAccount</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Category.pas">
+            <Form>dmCategory</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Category.pas">
+            <Form>frmCategory</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module.Data.Outputs.pas">
+            <Form>dmOutputs</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Module.Form.Outputs.pas">
+            <Form>frmOutputs</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Category.pas">
+            <Form>frmCategorySearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Consult.Form.Account.pas">
+            <Form>frmAccountConsult</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module.Data.Inputs.pas">
+            <Form>dmInputs</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Module.Form.Inputs.pas">
+            <Form>frmInputs</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Client.pas">
+            <Form>dmClient</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Client.pas">
+            <Form>frmClient</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Client.pas">
+            <Form>frmClientSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module.Data.Quotation.pas">
+            <Form>dmQuotation</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Module.Form.Quotation.pas">
+            <Form>frmQuotation</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Condition.pas">
+            <Form>dmCondition</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Condition.pas">
+            <Form>frmCondition</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Seller.pas">
+            <Form>dmSeller</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Seller.pas">
+            <Form>frmSeller</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Seller.pas">
+            <Form>frmSellerSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Data.Caterer.pas">
+            <Form>dmCaterer</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Search.Form.Caterer.pas">
+            <Form>frmCatererSearch</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Catalog.Form.Caterer.pas">
+            <Form>frmCaterer</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Module.Data.Order.pas">
+            <Form>dmOrder</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Module.Form.Order.pas">
+            <Form>frmOrder</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

@@ -2,11 +2,9 @@ inherited dmStock: TdmStock
   Height = 207
   inherited dspMaster: TDSProviderConnection
     ServerClassName = 'TsmStock'
-    Connected = True
     SQLConnection = dmGlobal.cntPromaharin
   end
   inherited cdsMaster: TClientDataSet
-    ProviderName = 'dspStock'
     object cdsMasterCOMBUSTIBLE: TStringField
       FieldName = 'COMBUSTIBLE'
       ReadOnly = True
@@ -17,7 +15,7 @@ inherited dmStock: TdmStock
     end
   end
   object frxStock: TfrxReport
-    Version = '5.6.2'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -48,6 +46,7 @@ inherited dmStock: TdmStock
         Font.Height = -16
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Header'
@@ -56,6 +55,7 @@ inherited dmStock: TdmStock
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Group header'
@@ -73,6 +73,7 @@ inherited dmStock: TdmStock
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = []
+        Frame.Typ = []
       end
       item
         Name = 'Group footer'
@@ -105,8 +106,10 @@ inherited dmStock: TdmStock
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 18.897650000000000000
         Width = 740.409927000000000000
@@ -119,6 +122,7 @@ inherited dmStock: TdmStock
           Font.Height = -16
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Saldos de inventario')
@@ -129,6 +133,7 @@ inherited dmStock: TdmStock
       end
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 68.031540000000000000
         Width = 740.409927000000000000
@@ -153,6 +158,7 @@ inherited dmStock: TdmStock
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'COMBUSTIBLE')
           ParentFont = False
@@ -167,6 +173,7 @@ inherited dmStock: TdmStock
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'SALDO')
           ParentFont = False
@@ -175,6 +182,7 @@ inherited dmStock: TdmStock
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 151.181200000000000000
         Width = 740.409927000000000000
@@ -192,6 +200,7 @@ inherited dmStock: TdmStock
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsStock."COMBUSTIBLE"]')
           ParentFont = False
@@ -211,6 +220,7 @@ inherited dmStock: TdmStock
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsStock."SALDO"]')
           ParentFont = False
@@ -219,6 +229,7 @@ inherited dmStock: TdmStock
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 230.551330000000000000
         Width = 740.409927000000000000
@@ -232,6 +243,7 @@ inherited dmStock: TdmStock
           Top = 1.000000000000000000
           Height = 22.677180000000000000
           AutoWidth = True
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Date] [Time]')
         end
@@ -241,6 +253,7 @@ inherited dmStock: TdmStock
           Top = 1.000000000000000000
           Width = 75.590600000000000000
           Height = 22.677180000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Page [Page#]')
@@ -279,6 +292,7 @@ inherited dmStock: TdmStock
     ShowProgress = True
     OverwritePrompt = False
     DataOnly = False
+    OpenAfterExport = False
     PrintOptimized = False
     Outline = False
     Background = False

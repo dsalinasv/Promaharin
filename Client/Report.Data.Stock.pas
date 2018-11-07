@@ -3,8 +3,9 @@ unit Report.Data.Stock;
 interface
 
 uses
-  System.SysUtils, System.Classes, Core.Data.Master, Data.DB, Datasnap.DBClient,
-  Datasnap.DSConnect, frxExportPDF, frxClass, frxExportXLS, frxDBSet;
+  System.SysUtils, System.Classes, Common.Data.Master, Data.DB, Datasnap.DBClient,
+  Datasnap.DSConnect, frxExportPDF, frxClass, frxExportXLS, frxDBSet,
+  frxExportBaseDialog;
 
 type
   TdmStock = class(TdmMaster)
