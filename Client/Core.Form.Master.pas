@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Core.Form.Base, Core.Data.Master, Data.DB,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Core.Form.Base, Common.Data.Master, Data.DB,
   System.ImageList, Vcl.ImgList, cxImageList, cxGraphics, dxSkinsCore,
   dxSkinOffice2013White, dxBar, cxClasses, Vcl.DBActns, System.Actions,
   Vcl.ActnList;

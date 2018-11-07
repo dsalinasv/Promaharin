@@ -12,11 +12,11 @@ uses
   cxDBData,
   cxGridLevel, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxGrid, dxLayoutContainer, dxLayoutControl, cxPC,
-  cxDataControllerConditionalFormattingRulesManagerDialog;
+  cxDataControllerConditionalFormattingRulesManagerDialog, dxBarExtItems,
+  Vcl.DBActns, cxLabel;
 
 type
   TfrmModule = class(TfrmMaster)
-    dxBarLargeButton1: TdxBarLargeButton;
     pcList: TcxPageControl;
     tabData: TcxTabSheet;
     lcData: TdxLayoutControl;
@@ -25,10 +25,32 @@ type
     grdList: TcxGrid;
     grdListView: TcxGridDBTableView;
     grdListLevel: TcxGridLevel;
+	  dtpFechaInicial: TdxBarDateCombo;
+    dtpFechaFinal: TdxBarDateCombo;
+    actInsert: TDataSetInsert;
+    actPost: TDataSetPost;
+    actCancel: TDataSetCancel;
+    btnInsert: TdxBarLargeButton;
+    btnPost: TdxBarLargeButton;
+    btnCancel: TdxBarLargeButton;
+    btnConsult: TdxBarLargeButton;
+    actConsult: TAction;
+	  actPrint: TAction;
+    btnPrint: TdxBarLargeButton;
+    btnDelete: TdxBarLargeButton;
+    actDelete: TDataSetDelete;
+    dsConsult: TDataSource;
+    ROW: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure grdListViewCellDblClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
+    procedure actCancelExecute(Sender: TObject);
+    procedure actInsertExecute(Sender: TObject);
+    procedure ROWGetDisplayText(Sender: TcxCustomGridTableItem;
+      ARecord: TcxCustomGridRecord; var AText: string);
+    procedure actConsultExecute(Sender: TObject);
+    procedure actPrintExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,6 +60,30 @@ type
 implementation
 
 {$R *.dfm}
+
+uses Common.Data.Module;
+
+procedure TfrmModule.actCancelExecute(Sender: TObject);
+begin
+  dmMaster.cdsMaster.Cancel;
+  CleanControl(Self);
+end;
+
+procedure TfrmModule.actConsultExecute(Sender: TObject);
+begin
+  (dmMaster as TdmModule).Consult(dtpFechaInicial.Date, dtpFechaFinal.Date);
+end;
+
+procedure TfrmModule.actInsertExecute(Sender: TObject);
+begin
+  dmMaster.cdsMaster.Append;
+  CleanControl(Self);
+end;
+
+procedure TfrmModule.actPrintExecute(Sender: TObject);
+begin
+  (dmMaster as TdmModule).Print(grdListView.DataController.Filter.FilterText);
+end;
 
 procedure TfrmModule.FormCreate(Sender: TObject);
 begin
@@ -50,6 +96,14 @@ procedure TfrmModule.grdListViewCellDblClick(Sender: TcxCustomGridTableView;
   AShift: TShiftState; var AHandled: Boolean);
 begin
   pcList.ActivePage:= tabData;
+  (dmMaster as TdmModule).ConsultById;
+end;
+
+procedure TfrmModule.ROWGetDisplayText(Sender: TcxCustomGridTableItem;
+  ARecord: TcxCustomGridRecord; var AText: string);
+begin
+  AText := IntToStr(Sender.GridView.DataController.GetRowIndexByRecordIndex(
+    ARecord.RecordIndex, False) + 1);
 end;
 
 end.

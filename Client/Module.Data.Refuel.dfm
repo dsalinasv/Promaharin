@@ -2,7 +2,6 @@ inherited dmRefuel: TdmRefuel
   Height = 279
   inherited dspMaster: TDSProviderConnection
     ServerClassName = 'TsmRefuel'
-    Connected = True
     SQLConnection = dmGlobal.cntPromaharin
   end
   inherited cdsMaster: TClientDataSet
@@ -13,7 +12,6 @@ inherited dmRefuel: TdmRefuel
         ParamType = ptInput
         Size = 38
       end>
-    ProviderName = 'dspRefuel'
     AfterInsert = cdsMasterAfterInsert
     OnCalcFields = cdsMasterCalcFields
     object cdsMasterIDREFUEL: TStringField
@@ -30,11 +28,6 @@ inherited dmRefuel: TdmRefuel
     object cdsMasterIDTRUCK: TStringField
       FieldName = 'IDTRUCK'
       Origin = 'IDTRUCK'
-      Size = 38
-    end
-    object cdsMasterIDDESTINATION: TStringField
-      FieldName = 'IDDESTINATION'
-      Origin = 'IDDESTINATION'
       Size = 38
     end
     object cdsMasterIDDRIVER: TStringField
@@ -72,8 +65,7 @@ inherited dmRefuel: TdmRefuel
       FieldName = 'qryRefuelDestination'
     end
   end
-  object cdsRefuelByDate: TClientDataSet
-    Aggregates = <>
+  inherited cdsConsult: TClientDataSet
     Params = <
       item
         DataType = ftTimeStamp
@@ -85,80 +77,82 @@ inherited dmRefuel: TdmRefuel
         Name = 'FIN'
         ParamType = ptInput
       end>
-    ProviderName = 'dspRefuelByDate'
-    RemoteServer = dspMaster
-    AfterInsert = cdsMasterAfterInsert
-    OnCalcFields = cdsMasterCalcFields
     Left = 112
-    Top = 64
-    object cdsRefuelByDateIDREFUEL: TStringField
+    object cdsConsultIDREFUEL: TStringField
       FieldName = 'IDREFUEL'
       Required = True
       Size = 38
     end
-    object cdsRefuelByDateFECHA: TSQLTimeStampField
+    object cdsConsultFECHA: TSQLTimeStampField
       FieldName = 'FECHA'
     end
-    object cdsRefuelByDateCAMION: TStringField
+    object cdsConsultCAMION: TStringField
       FieldName = 'CAMION'
       ReadOnly = True
       Size = 50
     end
-    object cdsRefuelByDateDESTINO: TStringField
+    object cdsConsultDESTINO: TStringField
       FieldName = 'DESTINO'
       ReadOnly = True
-      Size = 50
+      Size = 250
     end
-    object cdsRefuelByDateCHOFER: TStringField
+    object cdsConsultCHOFER: TStringField
       FieldName = 'CHOFER'
       ReadOnly = True
       Size = 50
     end
-    object cdsRefuelByDateSURTIDOR: TStringField
+    object cdsConsultSURTIDOR: TStringField
       FieldName = 'SURTIDOR'
       ReadOnly = True
       Size = 50
     end
-    object cdsRefuelByDateCOMBUSTIBLE: TStringField
+    object cdsConsultCOMBUSTIBLE: TStringField
       FieldName = 'COMBUSTIBLE'
       ReadOnly = True
       Size = 61
     end
-    object cdsRefuelByDateCANTIDAD: TFloatField
+    object cdsConsultCANTIDAD: TFloatField
       FieldName = 'CANTIDAD'
       DisplayFormat = ',0.00;-,0.00'
     end
-    object cdsRefuelByDatePRECIO: TFloatField
+    object cdsConsultPRECIO: TFloatField
       FieldName = 'PRECIO'
       DisplayFormat = '$,0.00;-$,0.00'
     end
-    object cdsRefuelByDateIMPORTE: TFloatField
+    object cdsConsultIMPORTE: TFloatField
       FieldName = 'IMPORTE'
       ReadOnly = True
       DisplayFormat = '$,0.00;-$,0.00'
     end
   end
-  object frxRefuelByDate: TfrxReport
-    Version = '5.6.2'
-    DotMatrixReport = False
-    IniFile = '\Software\Fast Reports'
+  inherited fdsConsult: TfrxDBDataset
+    UserName = 'fdsRefuelByDate'
+    FieldAliases.Strings = (
+      'IDREFUEL=IDREFUEL'
+      'FECHA=FECHA'
+      'CAMION=CAMION'
+      'DESTINO=DESTINO'
+      'CHOFER=CHOFER'
+      'SURTIDOR=SURTIDOR'
+      'COMBUSTIBLE=COMBUSTIBLE'
+      'CANTIDAD=CANTIDAD'
+      'PRECIO=PRECIO'
+      'IMPORTE=IMPORTE')
+    Left = 112
+  end
+  inherited frxConsult: TfrxReport
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
-    PreviewOptions.Zoom = 1.000000000000000000
-    PrintOptions.Printer = 'Por defecto'
-    PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43269.964377395800000000
     ReportOptions.LastChange = 43269.977291562500000000
-    ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
       'begin'
       ''
       'end.')
     Left = 112
-    Top = 160
     Datasets = <
       item
-        DataSet = fdsRefuelByDate
+        DataSet = fdsConsult
         DataSetName = 'fdsRefuelByDate'
       end>
     Variables = <>
@@ -170,6 +164,7 @@ inherited dmRefuel: TdmRefuel
         Font.Height = -16
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Header'
@@ -178,6 +173,7 @@ inherited dmRefuel: TdmRefuel
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Group header'
@@ -195,6 +191,7 @@ inherited dmRefuel: TdmRefuel
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = []
+        Frame.Typ = []
       end
       item
         Name = 'Group footer'
@@ -228,8 +225,10 @@ inherited dmRefuel: TdmRefuel
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 18.897650000000000000
         Width = 980.410082000000000000
@@ -242,6 +241,7 @@ inherited dmRefuel: TdmRefuel
           Font.Height = -16
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Reporte de recargas de combustible')
@@ -252,6 +252,7 @@ inherited dmRefuel: TdmRefuel
       end
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 68.031540000000000000
         Width = 980.410082000000000000
@@ -277,6 +278,7 @@ inherited dmRefuel: TdmRefuel
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'FECHA')
           ParentFont = False
@@ -291,6 +293,7 @@ inherited dmRefuel: TdmRefuel
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'CAMION')
           ParentFont = False
@@ -305,6 +308,7 @@ inherited dmRefuel: TdmRefuel
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'CHOFER')
           ParentFont = False
@@ -319,6 +323,7 @@ inherited dmRefuel: TdmRefuel
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'LITROS')
@@ -334,6 +339,7 @@ inherited dmRefuel: TdmRefuel
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'COSTO')
@@ -349,6 +355,7 @@ inherited dmRefuel: TdmRefuel
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'IMPORTE')
@@ -359,13 +366,14 @@ inherited dmRefuel: TdmRefuel
           Left = 264.567100000000000000
           Width = 151.181102360000000000
           Height = 22.677180000000000000
-          DataSet = fdsRefuelByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'DESTINO')
           ParentFont = False
@@ -379,6 +387,7 @@ inherited dmRefuel: TdmRefuel
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'COMBUSTIBLE')
           ParentFont = False
@@ -387,16 +396,18 @@ inherited dmRefuel: TdmRefuel
         object Memo20: TfrxMemoView
           Width = 37.795300000000000000
           Height = 22.677180000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             '#')
         end
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 151.181200000000000000
         Width = 980.410082000000000000
-        DataSet = fdsRefuelByDate
+        DataSet = fdsConsult
         DataSetName = 'fdsRefuelByDate'
         RowCount = 0
         object Memo9: TfrxMemoView
@@ -404,13 +415,14 @@ inherited dmRefuel: TdmRefuel
           Width = 75.590551180000000000
           Height = 18.897650000000000000
           DataField = 'FECHA'
-          DataSet = fdsRefuelByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRefuelByDate."FECHA"]')
           ParentFont = False
@@ -421,13 +433,14 @@ inherited dmRefuel: TdmRefuel
           Width = 151.181102360000000000
           Height = 18.897650000000000000
           DataField = 'CAMION'
-          DataSet = fdsRefuelByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRefuelByDate."CAMION"]')
           ParentFont = False
@@ -438,13 +451,14 @@ inherited dmRefuel: TdmRefuel
           Width = 151.181102360000000000
           Height = 18.897650000000000000
           DataField = 'CHOFER'
-          DataSet = fdsRefuelByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRefuelByDate."CHOFER"]')
           ParentFont = False
@@ -455,13 +469,14 @@ inherited dmRefuel: TdmRefuel
           Width = 75.008449460000000000
           Height = 18.897650000000000000
           DataField = 'CANTIDAD'
-          DataSet = fdsRefuelByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsRefuelByDate."CANTIDAD"]')
@@ -473,13 +488,14 @@ inherited dmRefuel: TdmRefuel
           Width = 64.238867520000000000
           Height = 18.897650000000000000
           DataField = 'PRECIO'
-          DataSet = fdsRefuelByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsRefuelByDate."PRECIO"]')
@@ -491,13 +507,14 @@ inherited dmRefuel: TdmRefuel
           Width = 70.221968600000000000
           Height = 18.897650000000000000
           DataField = 'IMPORTE'
-          DataSet = fdsRefuelByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsRefuelByDate."IMPORTE"]')
@@ -509,8 +526,9 @@ inherited dmRefuel: TdmRefuel
           Width = 151.181102360000000000
           Height = 18.897650000000000000
           DataField = 'DESTINO'
-          DataSet = fdsRefuelByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRefuelByDate."DESTINO"]')
         end
@@ -519,20 +537,23 @@ inherited dmRefuel: TdmRefuel
           Width = 151.181102360000000000
           Height = 18.897650000000000000
           DataField = 'COMBUSTIBLE'
-          DataSet = fdsRefuelByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRefuelByDate."COMBUSTIBLE"]')
         end
         object Memo19: TfrxMemoView
           Width = 37.795300000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Line]')
         end
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 275.905690000000000000
         Width = 980.410082000000000000
@@ -546,6 +567,7 @@ inherited dmRefuel: TdmRefuel
           Top = 1.000000000000000000
           Height = 22.677180000000000000
           AutoWidth = True
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Date] [Time]')
         end
@@ -555,6 +577,7 @@ inherited dmRefuel: TdmRefuel
           Top = 1.000000000000000000
           Width = 75.590600000000000000
           Height = 22.677180000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Page [Page#]')
@@ -562,6 +585,7 @@ inherited dmRefuel: TdmRefuel
       end
       object ReportSummary1: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 230.551330000000000000
         Width = 980.410082000000000000
@@ -571,6 +595,7 @@ inherited dmRefuel: TdmRefuel
           Height = 18.897650000000000000
           DisplayFormat.FormatStr = '$#,#0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<fdsRefuelByDate."IMPORTE">,MasterData1)]')
@@ -581,6 +606,7 @@ inherited dmRefuel: TdmRefuel
           Height = 18.897650000000000000
           DisplayFormat.FormatStr = '#,#0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<fdsRefuelByDate."CANTIDAD">,MasterData1)]')
@@ -588,67 +614,8 @@ inherited dmRefuel: TdmRefuel
       end
     end
   end
-  object fdsRefuelByDate: TfrxDBDataset
-    UserName = 'fdsRefuelByDate'
-    CloseDataSource = False
-    FieldAliases.Strings = (
-      'IDREFUEL=IDREFUEL'
-      'FECHA=FECHA'
-      'CAMION=CAMION'
-      'DESTINO=DESTINO'
-      'CHOFER=CHOFER'
-      'SURTIDOR=SURTIDOR'
-      'COMBUSTIBLE=COMBUSTIBLE'
-      'CANTIDAD=CANTIDAD'
-      'PRECIO=PRECIO'
-      'IMPORTE=IMPORTE')
-    DataSet = cdsRefuelByDate
-    BCDToCurrency = False
-    Left = 112
-    Top = 112
-  end
-  object frxXLSExport: TfrxXLSExport
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    DataOnly = False
-    ExportEMF = True
-    AsText = False
-    Background = True
-    FastExport = True
-    PageBreaks = True
-    EmptyLines = True
-    SuppressPageHeadersFooters = False
-    Left = 24
-    Top = 160
-  end
-  object frxPDFExport: TfrxPDFExport
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    DataOnly = False
-    PrintOptimized = False
-    Outline = False
-    Background = False
-    HTMLTags = True
-    Quality = 95
-    Transparency = False
-    Author = 'FastReport'
-    Subject = 'FastReport PDF export'
-    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
-    HideToolbar = False
-    HideMenubar = False
-    HideWindowUI = False
-    FitWindow = False
-    CenterWindow = False
-    PrintScaling = False
-    PdfA = False
-    Left = 24
-    Top = 112
-  end
   object dspDestination: TDSProviderConnection
     ServerClassName = 'TsmDestination'
-    Connected = True
     SQLConnection = dmGlobal.cntPromaharin
     Left = 112
     Top = 16
@@ -656,7 +623,7 @@ inherited dmRefuel: TdmRefuel
   object cdsDestination: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspDestination'
+    ProviderName = 'dspMaster'
     RemoteServer = dspDestination
     Left = 120
     Top = 24

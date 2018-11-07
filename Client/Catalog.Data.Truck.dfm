@@ -4,9 +4,6 @@ inherited dmTruck: TdmTruck
     Connected = True
     SQLConnection = dmGlobal.cntPromaharin
   end
-  inherited cdsMaster: TClientDataSet
-    ProviderName = 'dspTruck'
-  end
   object dspFuel: TDSProviderConnection
     ServerClassName = 'TsmFuel'
     Connected = True
@@ -17,7 +14,7 @@ inherited dmTruck: TdmTruck
   object cdsFuel: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspFuel'
+    ProviderName = 'dspMaster'
     RemoteServer = dspFuel
     Left = 104
     Top = 64

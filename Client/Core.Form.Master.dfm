@@ -1170,7 +1170,7 @@ inherited frmMaster: TfrmMaster
     DockControlHeights = (
       0
       0
-      40
+      56
       0)
     object ToolBar: TdxBar
       AllowClose = False
@@ -1207,7 +1207,6 @@ inherited frmMaster: TfrmMaster
       Action = actClose
       Category = 0
       AutoGrayScale = False
-      ShowCaption = False
     end
   end
 end

@@ -12,7 +12,6 @@ inherited dmInventory: TdmInventory
         ParamType = ptInput
         Size = 38
       end>
-    ProviderName = 'dspInventory'
     AfterInsert = cdsMasterAfterInsert
     OnCalcFields = cdsMasterCalcFields
     object cdsMasterIDINVENTORY: TStringField
@@ -60,8 +59,7 @@ inherited dmInventory: TdmInventory
       Calculated = True
     end
   end
-  object cdsInventoryByDate: TClientDataSet
-    Aggregates = <>
+  inherited cdsConsult: TClientDataSet
     Params = <
       item
         DataType = ftTimeStamp
@@ -73,73 +71,78 @@ inherited dmInventory: TdmInventory
         Name = 'FIN'
         ParamType = ptInput
       end>
-    ProviderName = 'dspInventoryByDate'
-    RemoteServer = dspMaster
-    AfterInsert = cdsMasterAfterInsert
-    OnCalcFields = cdsMasterCalcFields
     Left = 112
-    Top = 64
-    object cdsInventoryByDateIDINVENTORY: TStringField
+    object cdsConsultIDINVENTORY: TStringField
       FieldName = 'IDINVENTORY'
       Required = True
       Size = 38
     end
-    object cdsInventoryByDateFECHA: TSQLTimeStampField
+    object cdsConsultFECHA: TSQLTimeStampField
       FieldName = 'FECHA'
     end
-    object cdsInventoryByDatePROVISIONER: TStringField
+    object cdsConsultFOLIO: TStringField
+      FieldName = 'FOLIO'
+      Size = 10
+    end
+    object cdsConsultPROVISIONER: TStringField
       FieldName = 'PROVISIONER'
       ReadOnly = True
       Size = 61
     end
-    object cdsInventoryByDateCOMBUSTIBLE: TStringField
+    object cdsConsultCOMBUSTIBLE: TStringField
       FieldName = 'COMBUSTIBLE'
       ReadOnly = True
       Size = 61
     end
-    object cdsInventoryByDateCANTIDAD: TFloatField
+    object cdsConsultCANTIDAD: TFloatField
       FieldName = 'CANTIDAD'
     end
-    object cdsInventoryByDatePRECIO: TFloatField
+    object cdsConsultPRECIO: TFloatField
       FieldName = 'PRECIO'
       currency = True
     end
-    object cdsInventoryByDateSUBTOTAL: TFloatField
+    object cdsConsultSUBTOTAL: TFloatField
       FieldName = 'SUBTOTAL'
       ReadOnly = True
       currency = True
     end
-    object cdsInventoryByDateAJUSTE: TFloatField
+    object cdsConsultAJUSTE: TFloatField
       FieldName = 'AJUSTE'
       ReadOnly = True
     end
-    object cdsInventoryByDateIMPORTE: TFloatField
+    object cdsConsultIMPORTE: TFloatField
       FieldName = 'IMPORTE'
       ReadOnly = True
       currency = True
     end
   end
-  object frxInventoryByDate: TfrxReport
-    Version = '5.6.2'
-    DotMatrixReport = False
-    IniFile = '\Software\Fast Reports'
+  inherited fdsConsult: TfrxDBDataset
+    UserName = 'fdsRefuelByDate'
+    FieldAliases.Strings = (
+      'IDINVENTORY=IDINVENTORY'
+      'FECHA=FECHA'
+      'PROVISIONER=PROVISIONER'
+      'COMBUSTIBLE=COMBUSTIBLE'
+      'CANTIDAD=CANTIDAD'
+      'PRECIO=PRECIO'
+      'SUBTOTAL=SUBTOTAL'
+      'AJUSTE=AJUSTE'
+      'IMPORTE=IMPORTE')
+    Left = 112
+  end
+  inherited frxConsult: TfrxReport
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
-    PreviewOptions.Zoom = 1.000000000000000000
-    PrintOptions.Printer = 'Por defecto'
-    PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43269.964377395800000000
     ReportOptions.LastChange = 43269.977291562500000000
-    ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
       'begin'
       ''
       'end.')
     Left = 112
-    Top = 160
     Datasets = <
       item
-        DataSet = fdsInventoryByDate
+        DataSet = fdsConsult
         DataSetName = 'fdsRefuelByDate'
       end>
     Variables = <>
@@ -151,6 +154,7 @@ inherited dmInventory: TdmInventory
         Font.Height = -16
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Header'
@@ -159,6 +163,7 @@ inherited dmInventory: TdmInventory
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Group header'
@@ -176,6 +181,7 @@ inherited dmInventory: TdmInventory
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = []
+        Frame.Typ = []
       end
       item
         Name = 'Group footer'
@@ -209,8 +215,10 @@ inherited dmInventory: TdmInventory
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 18.897650000000000000
         Width = 980.410082000000000000
@@ -223,6 +231,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -16
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Reporte de entradas de combustible')
@@ -233,6 +242,7 @@ inherited dmInventory: TdmInventory
       end
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 68.031540000000000000
         Width = 980.410082000000000000
@@ -258,6 +268,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'FECHA')
           ParentFont = False
@@ -272,6 +283,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'PROVEEDOR')
           ParentFont = False
@@ -286,6 +298,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'LITROS')
@@ -301,6 +314,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'COSTO')
@@ -316,6 +330,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'SUBTOTAL')
@@ -331,6 +346,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'COMBUSTIBLE')
           ParentFont = False
@@ -345,6 +361,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'AJUSTE')
@@ -360,6 +377,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'IMPORTE')
@@ -369,16 +387,18 @@ inherited dmInventory: TdmInventory
         object Memo19: TfrxMemoView
           Width = 37.795300000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             '#')
         end
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 151.181200000000000000
         Width = 980.410082000000000000
-        DataSet = fdsInventoryByDate
+        DataSet = fdsConsult
         DataSetName = 'fdsRefuelByDate'
         RowCount = 0
         object Memo9: TfrxMemoView
@@ -386,13 +406,14 @@ inherited dmInventory: TdmInventory
           Width = 75.590551180000000000
           Height = 18.897650000000000000
           DataField = 'FECHA'
-          DataSet = fdsInventoryByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRefuelByDate."FECHA"]')
           ParentFont = False
@@ -403,7 +424,7 @@ inherited dmInventory: TdmInventory
           Width = 75.008449460000000000
           Height = 18.897650000000000000
           DataField = 'CANTIDAD'
-          DataSet = fdsInventoryByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           DisplayFormat.FormatStr = '#,#0.00'
           DisplayFormat.Kind = fkNumeric
@@ -412,6 +433,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsRefuelByDate."CANTIDAD"]')
@@ -423,7 +445,7 @@ inherited dmInventory: TdmInventory
           Width = 64.238867520000000000
           Height = 18.897650000000000000
           DataField = 'PRECIO'
-          DataSet = fdsInventoryByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           DisplayFormat.FormatStr = '$#,#0.00'
           DisplayFormat.Kind = fkNumeric
@@ -432,6 +454,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsRefuelByDate."PRECIO"]')
@@ -443,7 +466,7 @@ inherited dmInventory: TdmInventory
           Width = 92.899148600000000000
           Height = 18.897650000000000000
           DataField = 'IMPORTE'
-          DataSet = fdsInventoryByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           DisplayFormat.FormatStr = '$#,#0.00'
           DisplayFormat.Kind = fkNumeric
@@ -452,6 +475,7 @@ inherited dmInventory: TdmInventory
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsRefuelByDate."IMPORTE"]')
@@ -463,8 +487,9 @@ inherited dmInventory: TdmInventory
           Width = 226.771653540000000000
           Height = 18.897650000000000000
           DataField = 'COMBUSTIBLE'
-          DataSet = fdsInventoryByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRefuelByDate."COMBUSTIBLE"]')
         end
@@ -473,8 +498,9 @@ inherited dmInventory: TdmInventory
           Width = 226.771653540000000000
           Height = 18.897650000000000000
           DataField = 'PROVISIONER'
-          DataSet = fdsInventoryByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRefuelByDate."PROVISIONER"]')
         end
@@ -483,10 +509,11 @@ inherited dmInventory: TdmInventory
           Width = 68.031540000000000000
           Height = 18.897650000000000000
           DataField = 'AJUSTE'
-          DataSet = fdsInventoryByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           DisplayFormat.FormatStr = '#,#0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsRefuelByDate."AJUSTE"]')
@@ -496,10 +523,11 @@ inherited dmInventory: TdmInventory
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataField = 'SUBTOTAL'
-          DataSet = fdsInventoryByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsRefuelByDate'
           DisplayFormat.FormatStr = '$#,#0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsRefuelByDate."SUBTOTAL"]')
@@ -507,12 +535,14 @@ inherited dmInventory: TdmInventory
         object Memo11: TfrxMemoView
           Width = 37.795300000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Line]')
         end
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 275.905690000000000000
         Width = 980.410082000000000000
@@ -526,6 +556,7 @@ inherited dmInventory: TdmInventory
           Top = 1.000000000000000000
           Height = 22.677180000000000000
           AutoWidth = True
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Date] [Time]')
         end
@@ -535,6 +566,7 @@ inherited dmInventory: TdmInventory
           Top = 1.000000000000000000
           Width = 75.590600000000000000
           Height = 22.677180000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Page [Page#]')
@@ -542,6 +574,7 @@ inherited dmInventory: TdmInventory
       end
       object ReportSummary1: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 230.551330000000000000
         Width = 980.410082000000000000
@@ -551,6 +584,7 @@ inherited dmInventory: TdmInventory
           Height = 18.897650000000000000
           DisplayFormat.FormatStr = '$#,#0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<fdsRefuelByDate."IMPORTE">,MasterData1)]')
@@ -561,68 +595,12 @@ inherited dmInventory: TdmInventory
           Height = 18.897650000000000000
           DisplayFormat.FormatStr = '#,#0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<fdsRefuelByDate."CANTIDAD">,MasterData1)]')
         end
       end
     end
-  end
-  object fdsInventoryByDate: TfrxDBDataset
-    UserName = 'fdsRefuelByDate'
-    CloseDataSource = False
-    FieldAliases.Strings = (
-      'IDINVENTORY=IDINVENTORY'
-      'FECHA=FECHA'
-      'PROVISIONER=PROVISIONER'
-      'COMBUSTIBLE=COMBUSTIBLE'
-      'CANTIDAD=CANTIDAD'
-      'PRECIO=PRECIO'
-      'SUBTOTAL=SUBTOTAL'
-      'AJUSTE=AJUSTE'
-      'IMPORTE=IMPORTE')
-    DataSet = cdsInventoryByDate
-    BCDToCurrency = False
-    Left = 112
-    Top = 112
-  end
-  object frxXLSExport: TfrxXLSExport
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    DataOnly = False
-    ExportEMF = True
-    AsText = False
-    Background = True
-    FastExport = True
-    PageBreaks = True
-    EmptyLines = True
-    SuppressPageHeadersFooters = False
-    Left = 24
-    Top = 160
-  end
-  object frxPDFExport: TfrxPDFExport
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    DataOnly = False
-    PrintOptimized = False
-    Outline = False
-    Background = False
-    HTMLTags = True
-    Quality = 95
-    Transparency = False
-    Author = 'FastReport'
-    Subject = 'FastReport PDF export'
-    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
-    HideToolbar = False
-    HideMenubar = False
-    HideWindowUI = False
-    FitWindow = False
-    CenterWindow = False
-    PrintScaling = False
-    PdfA = False
-    Left = 24
-    Top = 112
   end
 end

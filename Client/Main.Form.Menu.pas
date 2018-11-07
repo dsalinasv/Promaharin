@@ -5,10 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
-  cxLookAndFeelPainters, dxNavBarCollns, cxClasses, dxNavBarBase, dxNavBar,
-  dxBarBuiltInMenu, System.Actions, Vcl.ActnList, cxPC, cxContainer, cxEdit,
-  dxGDIPlusClasses, cxImage, dxSkinsCore,
-  dxSkinOffice2013White;
+  cxLookAndFeelPainters, dxBarBuiltInMenu, cxContainer, cxEdit, cxImage, cxPC,
+  dxNavBarCollns, cxClasses, dxNavBarBase, dxNavBar, dxStatusBar;
 
 type
   TfrmMain = class(TForm)
@@ -17,45 +15,43 @@ type
     navReception: TdxNavBarGroup;
     mnuProvider: TdxNavBarItem;
     mnuReception: TdxNavBarItem;
-    actList: TActionList;
-    actProduct: TAction;
-    actProvider: TAction;
-    actReception: TAction;
     tabMain: TcxPageControl;
     tabInicio: TcxTabSheet;
     imgLogo: TcxImage;
     mnuTruck: TdxNavBarItem;
     mnuDestination: TdxNavBarItem;
     navRefuel: TdxNavBarGroup;
-    navExpense: TdxNavBarGroup;
-    actTruck: TAction;
-    actDestination: TAction;
-    actDriver: TAction;
-    actSupplier: TAction;
+    navTransactions: TdxNavBarGroup;
     mnuDriver: TdxNavBarItem;
     mnuSupplier: TdxNavBarItem;
     mnuRefuel: TdxNavBarItem;
-    actRefuel: TAction;
-    actFuel: TAction;
     mnuFuel: TdxNavBarItem;
-    actProvisioner: TAction;
     mnuProvisioner: TdxNavBarItem;
-    actInventory: TAction;
     mnuInventory: TdxNavBarItem;
-    actStock: TAction;
     mnuStock: TdxNavBarItem;
-    actBatch: TAction;
     mnuBatch: TdxNavBarItem;
+    navCaptures: TdxNavBarGroup;
+    navSecurity: TdxNavBarGroup;
+    mnuSession: TdxNavBarItem;
+    mnuChange: TdxNavBarItem;
+    mnuUsers: TdxNavBarItem;
+    mnuAccount: TdxNavBarItem;
+    mnuCategory: TdxNavBarItem;
+    mnuOutputs: TdxNavBarItem;
+    StatusBar: TdxStatusBar;
+    mnuInputs: TdxNavBarItem;
+    mnuClient: TdxNavBarItem;
+    mnuQuotation: TdxNavBarItem;
+    mnuCondition: TdxNavBarItem;
+    mnuSeller: TdxNavBarItem;
+    mnuCaterer: TdxNavBarItem;
     procedure tabMainCanCloseEx(Sender: TObject; ATabIndex: Integer;
       var ACanClose: Boolean);
-    procedure actExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
-  private
-    { Private declarations }
-    function OpenForm(FormName: string): TForm;
+    procedure FormShow(Sender: TObject);
   public
-    { Public declarations }
+    function OpenForm(FormName: string): TForm;
   end;
 
 var
@@ -65,32 +61,10 @@ implementation
 
 {$R *.dfm}
 
-uses ApplicationVersionHelper;
+uses ApplicationVersionHelper, Main.Data.Global;
 
 const
   LOGO = 'logo.jpg';
-
-procedure TfrmMain.actExecute(Sender: TObject);
-begin
-  OpenForm(StringReplace((Sender as TComponent).Name, 'act' , 'frm',[]));
-end;
-
-procedure TfrmMain.FormCreate(Sender: TObject);
-begin
-  Caption:= Application.Version['FileDescription'] + ' ' +
-    Application.Version['FileVersion'];
-  if FileExists(LOGO) then
-    imgLogo.Picture.LoadFromFile(LOGO);
-end;
-
-procedure TfrmMain.FormKeyPress(Sender: TObject; var Key: Char);
-begin
-  if Key = #13 then
-  begin
-    Perform(CM_DIALOGKEY, VK_TAB, 0);
-    Key := #0;
-  end;
-end;
 
 function TfrmMain.OpenForm(FormName: string): TForm;
 var
@@ -112,6 +86,28 @@ begin
     end;
   end;
   tabMain.ActivePage.Name := FormName;
+end;
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+  Caption:= Application.Version['FileDescription'] + ' ' +
+    Application.Version['FileVersion'];
+  if FileExists(LOGO) then
+    imgLogo.Picture.LoadFromFile(LOGO);
+end;
+
+procedure TfrmMain.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Perform(CM_DIALOGKEY, VK_TAB, 0);
+    Key := #0;
+  end;
+end;
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+  StatusBar.Panels.Items[0].Text:= 'Usuario: ' + dmGlobal.UserName;
 end;
 
 procedure TfrmMain.tabMainCanCloseEx(Sender: TObject; ATabIndex: Integer;

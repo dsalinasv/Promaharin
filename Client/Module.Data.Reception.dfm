@@ -11,7 +11,6 @@ inherited dmReception: TdmReception
         Name = 'IDRECEPTION'
         ParamType = ptInput
       end>
-    ProviderName = 'dspReception'
     AfterInsert = cdsMasterAfterInsert
     OnCalcFields = cdsMasterCalcFields
     object cdsMasterIDRECEPTION: TStringField
@@ -52,8 +51,7 @@ inherited dmReception: TdmReception
       Calculated = True
     end
   end
-  object cdsReceptionByDate: TClientDataSet
-    Aggregates = <>
+  inherited cdsConsult: TClientDataSet
     Params = <
       item
         DataType = ftUnknown
@@ -65,48 +63,43 @@ inherited dmReception: TdmReception
         Name = 'FIN'
         ParamType = ptInput
       end>
-    ProviderName = 'dspReceptionByDates'
-    RemoteServer = dspMaster
-    AfterInsert = cdsMasterAfterInsert
-    OnCalcFields = cdsMasterCalcFields
     Left = 112
-    Top = 64
-    object cdsReceptionByDateIDRECEPTION: TStringField
+    object cdsConsultIDRECEPTION: TStringField
       FieldName = 'IDRECEPTION'
       Origin = 'IDRECEPTION'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 38
     end
-    object cdsReceptionByDateFECHA: TSQLTimeStampField
+    object cdsConsultFECHA: TSQLTimeStampField
       FieldName = 'FECHA'
       Origin = 'FECHA'
     end
-    object cdsReceptionByDatePRODUCTO: TStringField
+    object cdsConsultPRODUCTO: TStringField
       FieldName = 'PRODUCTO'
       Origin = 'NAME'
       ProviderFlags = []
       ReadOnly = True
       Size = 50
     end
-    object cdsReceptionByDatePROVEEDOR: TStringField
+    object cdsConsultPROVEEDOR: TStringField
       FieldName = 'PROVEEDOR'
       Origin = 'NAME'
       ProviderFlags = []
       ReadOnly = True
       Size = 50
     end
-    object cdsReceptionByDateCANTIDAD: TFloatField
+    object cdsConsultCANTIDAD: TFloatField
       FieldName = 'CANTIDAD'
       Origin = 'CANTIDAD'
       DisplayFormat = ',0.00;-,0.00'
     end
-    object cdsReceptionByDatePRECIO: TFloatField
+    object cdsConsultPRECIO: TFloatField
       FieldName = 'PRECIO'
       Origin = 'PRECIO'
       DisplayFormat = '$,0.00;-$,0.00'
     end
-    object cdsReceptionByDateIMPORTE: TFloatField
+    object cdsConsultIMPORTE: TFloatField
       FieldName = 'IMPORTE'
       Origin = 'IMPORTE'
       ProviderFlags = []
@@ -114,27 +107,23 @@ inherited dmReception: TdmReception
       DisplayFormat = '$,0.00;-$,0.00'
     end
   end
-  object frxReceptionByDate: TfrxReport
-    Version = '5.6.2'
-    DotMatrixReport = False
-    IniFile = '\Software\Fast Reports'
+  inherited fdsConsult: TfrxDBDataset
+    UserName = 'fdsReceptionByDate'
+    Left = 112
+  end
+  inherited frxConsult: TfrxReport
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
-    PreviewOptions.Zoom = 1.000000000000000000
-    PrintOptions.Printer = 'Por defecto'
-    PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43269.964377395800000000
     ReportOptions.LastChange = 43269.977291562500000000
-    ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
       'begin'
       ''
       'end.')
     Left = 112
-    Top = 160
     Datasets = <
       item
-        DataSet = fdsReceptionByDate
+        DataSet = fdsConsult
         DataSetName = 'fdsReceptionByDate'
       end>
     Variables = <>
@@ -146,6 +135,7 @@ inherited dmReception: TdmReception
         Font.Height = -16
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Header'
@@ -154,6 +144,7 @@ inherited dmReception: TdmReception
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Group header'
@@ -171,6 +162,7 @@ inherited dmReception: TdmReception
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = []
+        Frame.Typ = []
       end
       item
         Name = 'Group footer'
@@ -203,8 +195,10 @@ inherited dmReception: TdmReception
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 18.897650000000000000
         Width = 740.409927000000000000
@@ -217,6 +211,7 @@ inherited dmReception: TdmReception
           Font.Height = -16
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Reporte de recepciones por fecha')
@@ -227,6 +222,7 @@ inherited dmReception: TdmReception
       end
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 68.031540000000000000
         Width = 740.409927000000000000
@@ -251,6 +247,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'FECHA')
           ParentFont = False
@@ -265,6 +262,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'PRODUCTO')
           ParentFont = False
@@ -279,6 +277,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'PROVEEDOR')
           ParentFont = False
@@ -293,6 +292,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'PESO')
@@ -308,6 +308,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'PRECIO')
@@ -323,6 +324,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'IMPORTE')
@@ -332,23 +334,25 @@ inherited dmReception: TdmReception
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 151.181200000000000000
         Width = 740.409927000000000000
-        DataSet = fdsReceptionByDate
+        DataSet = fdsConsult
         DataSetName = 'fdsReceptionByDate'
         RowCount = 0
         object Memo9: TfrxMemoView
           Width = 131.346427920627000000
           Height = 18.897650000000000000
           DataField = 'FECHA'
-          DataSet = fdsReceptionByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsReceptionByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsReceptionByDate."FECHA"]')
           ParentFont = False
@@ -359,13 +363,14 @@ inherited dmReception: TdmReception
           Width = 197.293448550356000000
           Height = 18.897650000000000000
           DataField = 'PRODUCTO'
-          DataSet = fdsReceptionByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsReceptionByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsReceptionByDate."PRODUCTO"]')
           ParentFont = False
@@ -376,13 +381,14 @@ inherited dmReception: TdmReception
           Width = 202.678239519695000000
           Height = 18.897650000000000000
           DataField = 'PROVEEDOR'
-          DataSet = fdsReceptionByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsReceptionByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsReceptionByDate."PROVEEDOR"]')
           ParentFont = False
@@ -393,7 +399,7 @@ inherited dmReception: TdmReception
           Width = 75.008449460000000000
           Height = 18.897650000000000000
           DataField = 'CANTIDAD'
-          DataSet = fdsReceptionByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsReceptionByDate'
           DisplayFormat.FormatStr = '#,#0.00'
           DisplayFormat.Kind = fkNumeric
@@ -402,6 +408,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsReceptionByDate."CANTIDAD"]')
@@ -413,7 +420,7 @@ inherited dmReception: TdmReception
           Width = 64.238867520000000000
           Height = 18.897650000000000000
           DataField = 'PRECIO'
-          DataSet = fdsReceptionByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsReceptionByDate'
           DisplayFormat.FormatStr = '$#,#0.00'
           DisplayFormat.Kind = fkNumeric
@@ -422,6 +429,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsReceptionByDate."PRECIO"]')
@@ -433,7 +441,7 @@ inherited dmReception: TdmReception
           Width = 70.221968600000000000
           Height = 18.897650000000000000
           DataField = 'IMPORTE'
-          DataSet = fdsReceptionByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsReceptionByDate'
           DisplayFormat.FormatStr = '$#,#0.00'
           DisplayFormat.Kind = fkNumeric
@@ -442,6 +450,7 @@ inherited dmReception: TdmReception
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsReceptionByDate."IMPORTE"]')
@@ -451,6 +460,7 @@ inherited dmReception: TdmReception
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 275.905690000000000000
         Width = 740.409927000000000000
@@ -464,6 +474,7 @@ inherited dmReception: TdmReception
           Top = 1.000000000000000000
           Height = 22.677180000000000000
           AutoWidth = True
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Date] [Time]')
         end
@@ -473,6 +484,7 @@ inherited dmReception: TdmReception
           Top = 1.000000000000000000
           Width = 75.590600000000000000
           Height = 22.677180000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Page [Page#]')
@@ -480,6 +492,7 @@ inherited dmReception: TdmReception
       end
       object ReportSummary1: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 230.551330000000000000
         Width = 740.409927000000000000
@@ -489,6 +502,7 @@ inherited dmReception: TdmReception
           Height = 18.897650000000000000
           DisplayFormat.FormatStr = '$#,#0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<fdsReceptionByDate."IMPORTE">,MasterData1)]')
@@ -499,78 +513,12 @@ inherited dmReception: TdmReception
           Height = 18.897650000000000000
           DisplayFormat.FormatStr = '#,#0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<fdsReceptionByDate."CANTIDAD">,MasterData1)]')
         end
       end
     end
-  end
-  object fdsReceptionByDate: TfrxDBDataset
-    UserName = 'fdsReceptionByDate'
-    CloseDataSource = False
-    DataSet = cdsReceptionByDate
-    BCDToCurrency = False
-    Left = 112
-    Top = 112
-  end
-  object frxXLSExport: TfrxXLSExport
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    DataOnly = False
-    ExportEMF = True
-    AsText = False
-    Background = True
-    FastExport = True
-    PageBreaks = True
-    EmptyLines = True
-    SuppressPageHeadersFooters = False
-    Left = 24
-    Top = 160
-  end
-  object frxPDFExport: TfrxPDFExport
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    DataOnly = False
-    PrintOptimized = False
-    Outline = False
-    Background = False
-    HTMLTags = True
-    Quality = 95
-    Transparency = False
-    Author = 'FastReport'
-    Subject = 'FastReport PDF export'
-    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
-    HideToolbar = False
-    HideMenubar = False
-    HideWindowUI = False
-    FitWindow = False
-    CenterWindow = False
-    PrintScaling = False
-    PdfA = False
-    Left = 24
-    Top = 112
-  end
-  object ssmGetCode: TSqlServerMethod
-    Params = <
-      item
-        DataType = ftWideString
-        Precision = 2000
-        Name = 'id'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftWideString
-        Precision = 2000
-        Name = 'ReturnParameter'
-        ParamType = ptResult
-        Size = 2000
-      end>
-    SQLConnection = dmGlobal.cntPromaharin
-    ServerMethodName = 'TsmReception.GetCode'
-    Left = 112
-    Top = 16
   end
 end

@@ -3,7 +3,7 @@ unit Catalog.Data.Truck;
 interface
 
 uses
-  System.SysUtils, System.Classes, Core.Data.Master, Data.DB, Datasnap.DBClient,
+  System.SysUtils, System.Classes, Common.Data.Master, Data.DB, Datasnap.DBClient,
   Datasnap.DSConnect, Data.FMTBcd, Data.SqlExpr;
 
 type

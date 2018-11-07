@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.DB, Datasnap.DBClient,
-  Datasnap.DSConnect, Core.Data.Master;
+  Datasnap.DSConnect, Common.Data.Master;
 
 type
   TdmProduct = class(TdmMaster)

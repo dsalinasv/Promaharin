@@ -4,51 +4,56 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.DB, Datasnap.DBClient,
-  Datasnap.DSConnect, Core.Data.Master, frxClass, frxDBSet, frxExportXLS,
-  frxExportPDF;
+  Datasnap.DSConnect, Common.Data.Module, frxClass, frxDBSet, frxExportXLS,
+  frxExportPDF, frxDesgn, frxExportBaseDialog;
 
 type
-  TdmBatch = class(TdmMaster)
-    cdsBatchByDate: TClientDataSet;
-    frxBatchByDate: TfrxReport;
-    fdsBatchByDate: TfrxDBDataset;
-    frxXLSExport: TfrxXLSExport;
-    frxPDFExport: TfrxPDFExport;
+  TdmBatch = class(TdmModule)
     cdsMasterIDBATCH: TStringField;
     cdsMasterFECHA: TSQLTimeStampField;
     cdsMasterCODIGO: TStringField;
     cdsMasterIDBATCHSTATUS: TIntegerField;
     cdsMasterqryBatchDetail: TDataSetField;
     cdsBatchDetail: TClientDataSet;
-    cdsBatchByDateIDBATCH: TStringField;
-    cdsBatchByDateFECHA: TSQLTimeStampField;
-    cdsBatchByDateCODIGO: TStringField;
-    cdsBatchByDateSTATUS: TStringField;
+    cdsConsultIDBATCH: TStringField;
+    cdsConsultFECHA: TSQLTimeStampField;
+    cdsConsultCODIGO: TStringField;
+    cdsConsultSTATUS: TStringField;
     cdsBatchStatus: TClientDataSet;
     frxLabel: TfrxReport;
     fdsLabel: TfrxDBDataset;
     cdsLabel: TClientDataSet;
     cdsLabelLote: TStringField;
     cdsLabelFecha: TDateField;
+    frxDesigner: TfrxDesigner;
+    cdsBatchDetailIDBATCHDETAIL: TStringField;
+    cdsBatchDetailIDBATCH: TStringField;
+    cdsBatchDetailFECHA: TSQLTimeStampField;
+    cdsBatchDetailCODIGO: TStringField;
+    cdsBatchDetailCANTIDAD: TIntegerField;
+    cdsBatchDetailIMPRESO: TSmallintField;
     procedure cdsMasterAfterInsert(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    procedure BatchById;
-    procedure BatchByDate(ini, fin: TDate);
-    procedure PrintBatch(filtro: string);
     procedure PrintLabel;
+    procedure DesignLabel;
+    procedure InitReport;
   end;
 
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses Main.Data.Global;
+uses Main.Data.Global, System.IOUtils;
 
 {$R *.dfm}
+
+var
+  PRINT_DIR: string;
+  PRINT_LABEL: string;
 
 procedure TdmBatch.cdsMasterAfterInsert(DataSet: TDataSet);
 begin
@@ -57,89 +62,34 @@ end;
 
 procedure TdmBatch.DataModuleCreate(Sender: TObject);
 begin
-  with cdsBatchByDate do
-  begin
-    ParamByName('INI').AsDate:= Date;
-    ParamByName('FIN').AsDate:= Date + 1;
-  end;
   inherited;
-end;
-
-procedure TdmBatch.BatchByDate(ini, fin: TDate);
-begin
-  with cdsBatchByDate do
-  begin
-    Close;
-    ParamByName('INI').AsDate:= ini;
-    ParamByName('FIN').AsDate:= fin + 1;
-    Open;
-  end;
-
-end;
-
-procedure TdmBatch.BatchById;
-begin
-  with cdsMaster do
-  begin
-    Close;
-    ParamByName('IDBATCH').AsString:=
-      cdsBatchByDate.FieldByName('IDBATCH').AsString;
-    Open;
-  end;
-end;
-
-procedure TdmBatch.PrintBatch(filtro: string);
-begin
-  with cdsBatchByDate do
-  begin
-    DisableControls;
-    Filtered:= true;
-    Filter:= filtro;
-  end;
-  with frxBatchByDate do
-  begin
-    if PrepareReport then
-      ShowPreparedReport;
-  end;
-  with cdsBatchByDate do
-  begin
-    Filter:= EmptyStr;
-    Filtered:= false;
-    EnableControls;
-  end;
+  PRINT_DIR:= TPath.GetHomePath + TPath.DirectorySeparatorChar + 'Promaharin';
+  PRINT_LABEL:= PRINT_DIR + TPath.DirectorySeparatorChar + 'Label.fr3';
 end;
 
 procedure TdmBatch.PrintLabel;
-var
-  i: integer;
 begin
-  with cdsBatchDetail do
-  begin
-    DisableControls;
-    First;
-    if cdsLabel.Active then
-    begin
-      cdsLabel.EmptyDataSet;
-      cdsLabel.Close;
-    end;
-    cdsLabel.CreateDataSet;
-    while not Eof do
-    begin
-      for i := 1 to FieldByName('CANTIDAD').AsInteger do
-      begin
-        cdsLabel.Append;
-        cdsLabelLote.Value:= FieldByName('CODIGO').AsString;
-        cdsLabelFecha.Value:= FieldByName('FECHA').AsDateTime;
-      end;
-      Next;
-    end;
-    EnableControls;
-  end;
+  InitReport;
   with frxLabel do
   begin
     if PrepareReport then
       ShowPreparedReport;
   end;
+end;
+
+procedure TdmBatch.DesignLabel;
+begin
+  InitReport;
+  frxLabel.DesignReport;
+end;
+
+procedure TdmBatch.InitReport;
+begin
+  if not TDirectory.Exists(PRINT_DIR) then
+    TDirectory.CreateDirectory(PRINT_DIR);
+  if not FileExists(PRINT_LABEL) then
+    frxLabel.SaveToFile(PRINT_LABEL);
+  frxLabel.LoadFromFile(PRINT_LABEL);
 end;
 
 initialization

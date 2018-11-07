@@ -1,13 +1,12 @@
 inherited dmProvider: TdmProvider
   inherited dspMaster: TDSProviderConnection
     ServerClassName = 'TsmProvider'
+    Connected = True
     SQLConnection = dmGlobal.cntPromaharin
-  end
-  inherited cdsMaster: TClientDataSet
-    ProviderName = 'dspProvider'
   end
   object dspProduct: TDSProviderConnection
     ServerClassName = 'TsmProduct'
+    Connected = True
     SQLConnection = dmGlobal.cntPromaharin
     Left = 104
     Top = 16
@@ -15,7 +14,7 @@ inherited dmProvider: TdmProvider
   object cdsProduct: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspProduct'
+    ProviderName = 'dspMaster'
     RemoteServer = dspProduct
     Left = 104
     Top = 64

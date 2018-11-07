@@ -18,32 +18,62 @@ object frmMain: TfrmMain
   WindowState = wsMaximized
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object navBar: TdxNavBar
     Left = 0
     Top = 0
-    Width = 193
-    Height = 561
+    Width = 233
+    Height = 541
     Align = alLeft
     ActiveGroupIndex = 0
     TabOrder = 0
-    ViewReal = 15
+    View = 14
     OptionsBehavior.Common.AllowSelectLinks = True
     OptionsBehavior.Common.EachGroupHasSelectedLink = True
     OptionsBehavior.NavigationPane.AllowCustomizing = False
-    OptionsView.NavigationPane.ShowOverflowPanel = False
-    object navReception: TdxNavBarGroup
-      Caption = 'Recepci'#243'n de materia prima'
+    OptionsView.ExplorerBar.ShowSpecialGroup = True
+    OptionsView.NavigationPane.ShowActiveGroupCaptionWhenCollapsed = True
+    object navCaptures: TdxNavBarGroup
+      Caption = 'Capturas'
       SelectedLinkIndex = -1
       TopVisibleLinkIndex = 0
+      OptionsExpansion.AllowMultipleGroupExpansion = False
+      OptionsExpansion.Expanded = False
       Links = <
+        item
+          Item = mnuSupplier
+        end
+        item
+          Item = mnuDriver
+        end
+        item
+          Item = mnuDestination
+        end
+        item
+          Item = mnuProvisioner
+        end
+        item
+          Item = mnuTruck
+        end
         item
           Item = mnuProduct
         end
         item
-          Item = mnuProvider
+          Item = mnuFuel
         end
+        item
+          Item = mnuProvider
+        end>
+    end
+    object navReception: TdxNavBarGroup
+      Caption = 'Recepci'#243'n de materia prima'
+      SelectedLinkIndex = -1
+      TopVisibleLinkIndex = 0
+      OptionsExpansion.AllowMultipleGroupExpansion = False
+      OptionsExpansion.Expanded = False
+      Links = <
         item
           Item = mnuReception
         end
@@ -55,25 +85,9 @@ object frmMain: TfrmMain
       Caption = 'Recarga de combustible'
       SelectedLinkIndex = -1
       TopVisibleLinkIndex = 0
+      OptionsExpansion.AllowMultipleGroupExpansion = False
+      OptionsExpansion.Expanded = False
       Links = <
-        item
-          Item = mnuFuel
-        end
-        item
-          Item = mnuTruck
-        end
-        item
-          Item = mnuDestination
-        end
-        item
-          Item = mnuDriver
-        end
-        item
-          Item = mnuSupplier
-        end
-        item
-          Item = mnuProvisioner
-        end
         item
           Item = mnuRefuel
         end
@@ -84,68 +98,147 @@ object frmMain: TfrmMain
           Item = mnuStock
         end>
     end
-    object navExpense: TdxNavBarGroup
-      Caption = 'Gastos'
+    object navTransactions: TdxNavBarGroup
+      Caption = 'Movimientos'
       SelectedLinkIndex = -1
       TopVisibleLinkIndex = 0
-      Links = <>
+      OptionsExpansion.AllowMultipleGroupExpansion = False
+      OptionsExpansion.Expanded = False
+      Links = <
+        item
+          Item = mnuAccount
+        end
+        item
+          Item = mnuCategory
+        end
+        item
+          Item = mnuClient
+        end
+        item
+          Item = mnuCaterer
+        end
+        item
+          Item = mnuSeller
+        end
+        item
+          Item = mnuOutputs
+        end
+        item
+          Item = mnuInputs
+        end
+        item
+          Item = mnuCondition
+        end
+        item
+          Item = mnuQuotation
+        end>
+    end
+    object navSecurity: TdxNavBarGroup
+      Caption = 'Seguridad'
+      SelectedLinkIndex = -1
+      TopVisibleLinkIndex = 0
+      Links = <
+        item
+          Item = mnuUsers
+        end
+        item
+          Item = mnuChange
+        end
+        item
+          Item = mnuSession
+        end>
     end
     object mnuProduct: TdxNavBarItem
-      Action = actProduct
+      Action = dmGlobal.actProduct
     end
     object mnuProvider: TdxNavBarItem
-      Action = actProvider
+      Action = dmGlobal.actProvider
     end
     object mnuReception: TdxNavBarItem
-      Action = actReception
+      Action = dmGlobal.actReception
     end
     object mnuTruck: TdxNavBarItem
-      Action = actTruck
+      Action = dmGlobal.actTruck
     end
     object mnuDestination: TdxNavBarItem
-      Action = actDestination
+      Action = dmGlobal.actDestination
     end
     object mnuDriver: TdxNavBarItem
-      Action = actDriver
+      Action = dmGlobal.actDriver
     end
     object mnuSupplier: TdxNavBarItem
-      Action = actSupplier
+      Action = dmGlobal.actSupplier
     end
     object mnuRefuel: TdxNavBarItem
-      Action = actRefuel
+      Action = dmGlobal.actRefuel
     end
     object mnuFuel: TdxNavBarItem
-      Action = actFuel
+      Action = dmGlobal.actFuel
     end
     object mnuProvisioner: TdxNavBarItem
-      Action = actProvisioner
+      Action = dmGlobal.actProvisioner
     end
     object mnuInventory: TdxNavBarItem
-      Action = actInventory
+      Action = dmGlobal.actInventory
     end
     object mnuStock: TdxNavBarItem
-      Action = actStock
+      Action = dmGlobal.actStock
     end
     object mnuBatch: TdxNavBarItem
-      Action = actBatch
+      Action = dmGlobal.actBatch
+    end
+    object mnuSession: TdxNavBarItem
+      Action = dmGlobal.actSession
+    end
+    object mnuChange: TdxNavBarItem
+      Action = dmGlobal.actChange
+    end
+    object mnuUsers: TdxNavBarItem
+      Action = dmGlobal.actUsers
+    end
+    object mnuAccount: TdxNavBarItem
+      Action = dmGlobal.actAccount
+    end
+    object mnuCategory: TdxNavBarItem
+      Action = dmGlobal.actCategory
+    end
+    object mnuClient: TdxNavBarItem
+      Action = dmGlobal.actClient
+    end
+    object mnuOutputs: TdxNavBarItem
+      Action = dmGlobal.actOutputs
+    end
+    object mnuInputs: TdxNavBarItem
+      Action = dmGlobal.actInputs
+    end
+    object mnuQuotation: TdxNavBarItem
+      Action = dmGlobal.actQuotation
+    end
+    object mnuCondition: TdxNavBarItem
+      Action = dmGlobal.actCondition
+    end
+    object mnuSeller: TdxNavBarItem
+      Action = dmGlobal.actSeller
+    end
+    object mnuCaterer: TdxNavBarItem
+      Action = dmGlobal.actCaterer
     end
   end
   object tabMain: TcxPageControl
-    Left = 193
+    Left = 233
     Top = 0
-    Width = 591
-    Height = 561
+    Width = 551
+    Height = 541
     Align = alClient
     TabOrder = 1
     Properties.ActivePage = tabInicio
     Properties.CloseButtonMode = cbmEveryTab
     Properties.CustomButtons.Buttons = <>
-    Properties.TabPosition = tpBottom
     OnCanCloseEx = tabMainCanCloseEx
-    ClientRectBottom = 533
+    ClientRectBottom = 539
     ClientRectLeft = 2
-    ClientRectRight = 589
-    ClientRectTop = 2
+    ClientRectRight = 549
+    ClientRectTop = 28
     object tabInicio: TcxTabSheet
       Caption = 'Inicio'
       ImageIndex = 0
@@ -156,78 +249,35 @@ object frmMain: TfrmMain
         Style.BorderStyle = ebsNone
         StyleHot.BorderStyle = ebsUltraFlat
         TabOrder = 0
-        Height = 531
-        Width = 587
+        Height = 511
+        Width = 547
       end
     end
   end
-  object actList: TActionList
-    Left = 224
-    Top = 8
-    object actProduct: TAction
-      Category = 'Reception'
-      Caption = 'Captura de productos'
-      OnExecute = actExecute
-    end
-    object actProvider: TAction
-      Category = 'Reception'
-      Caption = 'Captura de proveedores'
-      OnExecute = actExecute
-    end
-    object actReception: TAction
-      Category = 'Reception'
-      Caption = 'Recepci'#243'n de materia prima'
-      OnExecute = actExecute
-    end
-    object actTruck: TAction
-      Category = 'Refuel'
-      Caption = 'Captura de equipos/unidades'
-      OnExecute = actExecute
-    end
-    object actDestination: TAction
-      Category = 'Refuel'
-      Caption = 'Captura de destinos'
-      OnExecute = actExecute
-    end
-    object actDriver: TAction
-      Category = 'Refuel'
-      Caption = 'Captura de operadores'
-      OnExecute = actExecute
-    end
-    object actSupplier: TAction
-      Category = 'Refuel'
-      Caption = 'Captura de surtidores'
-      OnExecute = actExecute
-    end
-    object actRefuel: TAction
-      Category = 'Refuel'
-      Caption = 'Recarga de combustible'
-      OnExecute = actExecute
-    end
-    object actFuel: TAction
-      Category = 'Refuel'
-      Caption = 'Captura de combustibles'
-      OnExecute = actExecute
-    end
-    object actProvisioner: TAction
-      Category = 'Refuel'
-      Caption = 'Captura de proveedores'
-      OnExecute = actExecute
-    end
-    object actInventory: TAction
-      Category = 'Refuel'
-      Caption = 'Captura de inventarios'
-      OnExecute = actExecute
-    end
-    object actStock: TAction
-      Category = 'Refuel'
-      Caption = 'Saldo de inventario'
-      OnExecute = actExecute
-    end
-    object actBatch: TAction
-      Category = 'Reception'
-      Caption = 'Gesti'#243'n de lotes completos'
-      OnExecute = actExecute
-    end
+  object StatusBar: TdxStatusBar
+    Left = 0
+    Top = 541
+    Width = 784
+    Height = 20
+    Panels = <
+      item
+        PanelStyleClassName = 'TdxStatusBarTextPanelStyle'
+        Text = 'Usuario:'
+        Width = 250
+      end
+      item
+        PanelStyleClassName = 'TdxStatusBarTextPanelStyle'
+        Text = 'Cuenta:'
+        Width = 250
+      end
+      item
+        PanelStyleClassName = 'TdxStatusBarTextPanelStyle'
+      end>
+    PaintStyle = stpsXP
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
   end
 end

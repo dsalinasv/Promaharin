@@ -3,7 +3,4 @@ inherited dmFuel: TdmFuel
     ServerClassName = 'TsmFuel'
     SQLConnection = dmGlobal.cntPromaharin
   end
-  inherited cdsMaster: TClientDataSet
-    ProviderName = 'dspFuel'
-  end
 end

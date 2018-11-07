@@ -3,7 +3,4 @@ inherited dmProduct: TdmProduct
     ServerClassName = 'TsmProduct'
     SQLConnection = dmGlobal.cntPromaharin
   end
-  inherited cdsMaster: TClientDataSet
-    ProviderName = 'dspProduct'
-  end
 end

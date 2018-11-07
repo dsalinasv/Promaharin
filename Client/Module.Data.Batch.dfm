@@ -1,6 +1,6 @@
 inherited dmBatch: TdmBatch
   Height = 213
-  Width = 311
+  Width = 350
   inherited dspMaster: TDSProviderConnection
     ServerClassName = 'TsmBatch'
     SQLConnection = dmGlobal.cntPromaharin
@@ -13,32 +13,35 @@ inherited dmBatch: TdmBatch
         ParamType = ptInput
         Size = 38
       end>
-    ProviderName = 'dspBatch'
     AfterInsert = cdsMasterAfterInsert
     object cdsMasterIDBATCH: TStringField
       FieldName = 'IDBATCH'
       Origin = 'IDBATCH'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 38
     end
     object cdsMasterFECHA: TSQLTimeStampField
       FieldName = 'FECHA'
       Origin = 'FECHA'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsMasterCODIGO: TStringField
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsMasterIDBATCHSTATUS: TIntegerField
       FieldName = 'IDBATCHSTATUS'
       Origin = 'IDBATCHSTATUS'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsMasterqryBatchDetail: TDataSetField
       FieldName = 'qryBatchDetail'
+      ProviderFlags = [pfInUpdate]
     end
   end
-  object cdsBatchByDate: TClientDataSet
-    Aggregates = <>
+  inherited cdsConsult: TClientDataSet
     Params = <
       item
         DataType = ftUnknown
@@ -50,49 +53,47 @@ inherited dmBatch: TdmBatch
         Name = 'FIN'
         ParamType = ptInput
       end>
-    ProviderName = 'dspBatchByDates'
-    RemoteServer = dspMaster
-    AfterInsert = cdsMasterAfterInsert
     Left = 176
-    Top = 64
-    object cdsBatchByDateIDBATCH: TStringField
+    object cdsConsultIDBATCH: TStringField
       FieldName = 'IDBATCH'
+      ProviderFlags = [pfInKey]
       Required = True
       Size = 38
     end
-    object cdsBatchByDateFECHA: TSQLTimeStampField
+    object cdsConsultFECHA: TSQLTimeStampField
       FieldName = 'FECHA'
     end
-    object cdsBatchByDateCODIGO: TStringField
+    object cdsConsultCODIGO: TStringField
       FieldName = 'CODIGO'
     end
-    object cdsBatchByDateSTATUS: TStringField
+    object cdsConsultSTATUS: TStringField
       FieldName = 'STATUS'
       ReadOnly = True
       Size = 10
     end
   end
-  object frxBatchByDate: TfrxReport
-    Version = '5.6.2'
-    DotMatrixReport = False
-    IniFile = '\Software\Fast Reports'
+  inherited fdsConsult: TfrxDBDataset
+    UserName = 'fdsBatchByDate'
+    FieldAliases.Strings = (
+      'IDBATCH=IDBATCH'
+      'FECHA=FECHA'
+      'CODIGO=CODIGO'
+      'STATUS=STATUS')
+    Left = 176
+  end
+  inherited frxConsult: TfrxReport
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
-    PreviewOptions.Zoom = 1.000000000000000000
-    PrintOptions.Printer = 'Por defecto'
-    PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43269.964377395800000000
     ReportOptions.LastChange = 43269.977291562500000000
-    ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
       'begin'
       ''
       'end.')
     Left = 176
-    Top = 160
     Datasets = <
       item
-        DataSet = fdsBatchByDate
+        DataSet = fdsConsult
         DataSetName = 'fdsBatchByDate'
       end>
     Variables = <>
@@ -104,6 +105,7 @@ inherited dmBatch: TdmBatch
         Font.Height = -16
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Header'
@@ -112,6 +114,7 @@ inherited dmBatch: TdmBatch
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        Frame.Typ = []
       end
       item
         Name = 'Group header'
@@ -129,6 +132,7 @@ inherited dmBatch: TdmBatch
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = []
+        Frame.Typ = []
       end
       item
         Name = 'Group footer'
@@ -161,8 +165,10 @@ inherited dmBatch: TdmBatch
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 18.897650000000000000
         Width = 740.409927000000000000
@@ -175,6 +181,7 @@ inherited dmBatch: TdmBatch
           Font.Height = -16
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Reporte de lotes completos')
@@ -185,6 +192,7 @@ inherited dmBatch: TdmBatch
       end
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 68.031540000000000000
         Width = 740.409927000000000000
@@ -202,13 +210,14 @@ inherited dmBatch: TdmBatch
           Style = 'Header line'
         end
         object Memo3: TfrxMemoView
-          Width = 131.346427920627000000
+          Width = 131.346427920000000000
           Height = 22.677180000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'FECHA')
           ParentFont = False
@@ -223,6 +232,7 @@ inherited dmBatch: TdmBatch
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'CODIGO')
           ParentFont = False
@@ -237,6 +247,7 @@ inherited dmBatch: TdmBatch
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'STATUS')
           ParentFont = False
@@ -245,23 +256,25 @@ inherited dmBatch: TdmBatch
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 151.181200000000000000
         Width = 740.409927000000000000
-        DataSet = fdsBatchByDate
+        DataSet = fdsConsult
         DataSetName = 'fdsBatchByDate'
         RowCount = 0
         object Memo9: TfrxMemoView
           Width = 131.346427920627000000
           Height = 18.897650000000000000
           DataField = 'FECHA'
-          DataSet = fdsBatchByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsBatchByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsBatchByDate."FECHA"]')
           ParentFont = False
@@ -272,13 +285,14 @@ inherited dmBatch: TdmBatch
           Width = 197.293448550000000000
           Height = 18.897650000000000000
           DataField = 'CODIGO'
-          DataSet = fdsBatchByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsBatchByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsBatchByDate."CODIGO"]')
           ParentFont = False
@@ -289,13 +303,14 @@ inherited dmBatch: TdmBatch
           Width = 202.678239519695000000
           Height = 18.897650000000000000
           DataField = 'STATUS'
-          DataSet = fdsBatchByDate
+          DataSet = fdsConsult
           DataSetName = 'fdsBatchByDate'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsBatchByDate."STATUS"]')
           ParentFont = False
@@ -304,6 +319,7 @@ inherited dmBatch: TdmBatch
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 275.905690000000000000
         Width = 740.409927000000000000
@@ -317,6 +333,7 @@ inherited dmBatch: TdmBatch
           Top = 1.000000000000000000
           Height = 22.677180000000000000
           AutoWidth = True
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Date] [Time]')
         end
@@ -326,6 +343,7 @@ inherited dmBatch: TdmBatch
           Top = 1.000000000000000000
           Width = 75.590600000000000000
           Height = 22.677180000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Page [Page#]')
@@ -333,83 +351,12 @@ inherited dmBatch: TdmBatch
       end
       object ReportSummary1: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 230.551330000000000000
         Width = 740.409927000000000000
-        object SysMemo1: TfrxSysMemoView
-          Left = 670.488188980000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          DisplayFormat.FormatStr = '$#,#0.00'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[SUM(<fdsReceptionByDate."IMPORTE">,MasterData1)]')
-        end
-        object SysMemo2: TfrxSysMemoView
-          Left = 529.134200000000000000
-          Width = 75.590600000000000000
-          Height = 18.897650000000000000
-          DisplayFormat.FormatStr = '#,#0.00'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[SUM(<fdsReceptionByDate."CANTIDAD">,MasterData1)]')
-        end
       end
     end
-  end
-  object fdsBatchByDate: TfrxDBDataset
-    UserName = 'fdsBatchByDate'
-    CloseDataSource = False
-    FieldAliases.Strings = (
-      'IDBATCH=IDBATCH'
-      'FECHA=FECHA'
-      'CODIGO=CODIGO'
-      'STATUS=STATUS')
-    DataSet = cdsBatchByDate
-    BCDToCurrency = False
-    Left = 176
-    Top = 112
-  end
-  object frxXLSExport: TfrxXLSExport
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    DataOnly = False
-    ExportEMF = True
-    AsText = False
-    Background = True
-    FastExport = True
-    PageBreaks = True
-    EmptyLines = True
-    SuppressPageHeadersFooters = False
-    Left = 24
-    Top = 160
-  end
-  object frxPDFExport: TfrxPDFExport
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    DataOnly = False
-    PrintOptimized = False
-    Outline = False
-    Background = False
-    HTMLTags = True
-    Quality = 95
-    Transparency = False
-    Author = 'FastReport'
-    Subject = 'FastReport PDF export'
-    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
-    HideToolbar = False
-    HideMenubar = False
-    HideWindowUI = False
-    FitWindow = False
-    CenterWindow = False
-    PrintScaling = False
-    PdfA = False
-    Left = 24
-    Top = 112
   end
   object cdsBatchDetail: TClientDataSet
     Aggregates = <>
@@ -417,6 +364,34 @@ inherited dmBatch: TdmBatch
     Params = <>
     Left = 96
     Top = 64
+    object cdsBatchDetailIDBATCHDETAIL: TStringField
+      FieldName = 'IDBATCHDETAIL'
+      Origin = 'IDBATCHDETAIL'
+      ProviderFlags = [pfInKey]
+      Required = True
+      Size = 38
+    end
+    object cdsBatchDetailIDBATCH: TStringField
+      FieldName = 'IDBATCH'
+      Origin = 'IDBATCH'
+      Size = 38
+    end
+    object cdsBatchDetailFECHA: TSQLTimeStampField
+      FieldName = 'FECHA'
+      Origin = 'FECHA'
+    end
+    object cdsBatchDetailCODIGO: TStringField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+    end
+    object cdsBatchDetailCANTIDAD: TIntegerField
+      FieldName = 'CANTIDAD'
+      Origin = 'CANTIDAD'
+    end
+    object cdsBatchDetailIMPRESO: TSmallintField
+      DefaultExpression = '0'
+      FieldName = 'IMPRESO'
+    end
   end
   object cdsBatchStatus: TClientDataSet
     Aggregates = <>
@@ -427,7 +402,7 @@ inherited dmBatch: TdmBatch
     Top = 112
   end
   object frxLabel: TfrxReport
-    Version = '5.6.2'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -435,7 +410,7 @@ inherited dmBatch: TdmBatch
     PrintOptions.Printer = 'Por defecto'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43303.835683541700000000
-    ReportOptions.LastChange = 43303.835683541700000000
+    ReportOptions.LastChange = 43320.999945381950000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -456,24 +431,29 @@ inherited dmBatch: TdmBatch
       Width = 1000.000000000000000000
     end
     object Page1: TfrxReportPage
-      PaperWidth = 215.900000000000000000
-      PaperHeight = 279.400000000000000000
-      PaperSize = 1
+      Orientation = poLandscape
+      PaperWidth = 355.600000000000000000
+      PaperHeight = 215.900000000000000000
+      PaperSize = 5
       LeftMargin = 10.000000000000000000
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
-      Columns = 3
-      ColumnWidth = 65.300000000000000000
+      Columns = 5
+      ColumnWidth = 67.200000000000000000
       ColumnPositions.Strings = (
         '0'
-        '65.30'
-        '130.60')
+        '67.20'
+        '134.40'
+        '201.60'
+        '268.80')
+      Frame.Typ = []
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 313.700990000000000000
         Top = 18.897650000000000000
-        Width = 246.803309000000000000
+        Width = 253.984416000000000000
         DataSet = fdsLabel
         DataSetName = 'fdsLabel'
         RowCount = 0
@@ -485,6 +465,7 @@ inherited dmBatch: TdmBatch
           DataField = 'Lote'
           DataSet = fdsLabel
           DataSetName = 'fdsLabel'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsLabel."Lote"]')
         end
@@ -496,6 +477,7 @@ inherited dmBatch: TdmBatch
           DataField = 'FECHA'
           DataSet = fdsLabel
           DataSetName = 'fdsLabel'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsLabel."FECHA"]')
         end
@@ -537,5 +519,27 @@ inherited dmBatch: TdmBatch
     object cdsLabelFecha: TDateField
       FieldName = 'Fecha'
     end
+  end
+  object frxDesigner: TfrxDesigner
+    DefaultScriptLanguage = 'PascalScript'
+    DefaultFont.Charset = DEFAULT_CHARSET
+    DefaultFont.Color = clWindowText
+    DefaultFont.Height = -13
+    DefaultFont.Name = 'Arial'
+    DefaultFont.Style = []
+    DefaultLeftMargin = 10.000000000000000000
+    DefaultRightMargin = 10.000000000000000000
+    DefaultTopMargin = 10.000000000000000000
+    DefaultBottomMargin = 10.000000000000000000
+    DefaultPaperSize = 9
+    DefaultOrientation = poPortrait
+    GradientEnd = 11982554
+    GradientStart = clWindow
+    TemplatesExt = 'fr3'
+    Restrictions = []
+    RTLLanguage = False
+    MemoParentFont = False
+    Left = 304
+    Top = 160
   end
 end
